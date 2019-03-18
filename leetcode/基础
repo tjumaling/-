@@ -1,8 +1,27 @@
 #冒泡排序
  def bubbleSort(Array):
     m = len(Array)
+	if m <= 1:
+		return Array
     for i in range(m-1):
         for j in range(m-1-i):
             if Array[j] > Array[j+1]:
                 Array[j], Array[j+1] = Array[j+1], Array[j]
     return Array
+
+#快排
+def quickSort(Array):
+	if len(Array) <= 1:
+		return Array
+	l, r = 0, len(Array)-1
+	while l < r:
+		index = partition
+def partition(Array, l, r):
+	x = Array[r]
+	i = l-1
+	for j in range(l, r):
+		if Array[j] <= x:
+			i += 1
+			Array[i], Array[j] = Array[j], Array[i]
+	Array[i+1], Array[r] = Array[r], Array[i+1]
+	return i+1
