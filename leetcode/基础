@@ -1,3 +1,4 @@
+_____________________________________________________________________________________________________
 #冒泡排序
 def bubbleSort(Array):
 	m = len(Array)
@@ -9,13 +10,15 @@ def bubbleSort(Array):
 			Array[j], Array[j+1] = Array[j+1], Array[j]
 	return Array
 
+
+_____________________________________________________________________________________________________
 #快排
-def quickSort(Array):
-	if len(Array) <= 1:
-		return Array
-	l, r = 0, len(Array)-1
-	while l < r:
-		index = partition
+#递归
+def quickSort(Array, l, r):
+	if l < r:
+		q = partition(Array, l, r)
+		quickSort(Array, l, q-1)
+		quickSort(Array, q+1, r)
 def partition(Array, l, r):
 	x = Array[r]
 	i = l-1
@@ -25,3 +28,48 @@ def partition(Array, l, r):
 			Array[i], Array[j] = Array[j], Array[i]
 	Array[i+1], Array[r] = Array[r], Array[i+1]
 	return i+1
+	
+#非递归
+def quickSort(Array):
+	l, r = 0, len(Array)-1
+	stack = [l, r]
+	while stack:
+		left = stack.pop(0)
+		right = stack.pop(0)
+		x = Array[right]
+		i = left - 1
+		for j in range(left, right):
+			if Array[j] <= x:
+				i += 1
+				Array[j], Array[i] = Array[i], Array[j]
+		Array[i+1], Array[right] = Array[right], Array[i+1]
+		stack.extend([left, i, i+2, right])
+		
+		
+_____________________________________________________________________________________________________
+#归并排序
+def mergeSort(Array):
+	if len(Array) == 1:
+		return Array
+	middle = len(Array)//2
+	left = mergeSort(Array[:middle])
+	right = mergeSort(Array[middle:])
+	return merge(left, right)
+
+def merge(A, B):
+	C = []
+	i = j = 0
+	while i < len(A) and j < len(B):
+		if A[i] > B[j]:
+			C.append(B[j])
+			j += 1
+		else:
+			C.append(A[i])
+			i += 1
+	while i < len(A):
+		C.append(A[i])
+		i += 1
+	while j < len(B):
+		C.append(B[j])
+		j += 1
+	return C
