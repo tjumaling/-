@@ -1,14 +1,13 @@
 #冒泡排序
-
-	def bubbleSort(Array):
-    	m = len(Array)
-		if m <= 1:
-			return Array
-    	for i in range(m-1):
-        	for j in range(m-1-i):
-            	if Array[j] > Array[j+1]:
-                	Array[j], Array[j+1] = Array[j+1], Array[j]
-    	return Array
+def bubbleSort(Array):
+	m = len(Array)
+	if m <= 1:
+		return Array
+	for i in range(m-1):
+		for j in range(m-1-i):
+		if Array[j] > Array[j+1]:
+			Array[j], Array[j+1] = Array[j+1], Array[j]
+	return Array
 
 #快排
 def quickSort(Array):
