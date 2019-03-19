@@ -76,3 +76,65 @@ class Solution:
 			p = p.next
 			pHead2 = pHead2.next
 		return res.next
+
+
+————————————————————————————————————————————————————————————————————————————————————————————————————
+【两个链表的第一个公共结点】
+输入两个链表，找出它们的第一个公共结点。
+class Solution:
+	def FindFirstCommonNode(self, pHead1, pHead2):
+		m = self.getLen(pHead1)
+		n = self.getLen(pHead2)
+		if m < n:
+			pHead1, pHead2 = pHead2, pHead1
+			m, n = n, m
+		for i in range(m-n):
+			pHead1 = pHead1.next
+		while pHead1 and pHead2:
+			if pHead1 == pHead2:
+				return pHead1
+			pHead2 = pHead2.next
+			pHead1 = pHead1.next
+	def getLen(self, p):
+		m = 0
+		while p:
+			m += 1
+			p = p.next
+		return m
+		
+		
+————————————————————————————————————————————————————————————————————————————————————————————————————	
+【复杂链表的复制】
+输入一个复杂链表（每个节点中有节点值，以及两个指针，一个指向下一个节点，另一个特殊指针指向任意一个节点），返回结果为复制后复杂链表的head。
+（注意，输出结果中请不要返回参数中的节点引用，否则判题程序会直接返回空）
+class Solution:
+	def Clone(self, pHead):
+		if pHead == None:
+			return None
+		self.cloneNode(pHead)
+		self.connectRandom(pHead)
+		return self.reconnect(pHead)
+	def cloneNode(self, pHead):
+		while pHead:
+			node = RandomListNode(pHead.label)
+			node.next = pHead.next
+			pHead.next = node
+			pHead = node.next
+	def connectRandom(self, pHead):
+		while pHead:
+			if pHead.random:
+				pHead.next.random = pHead.random.next
+			pHead = pHead.next.next
+	def reconnect(self, pHead):
+		q = pHead
+		res = p = pHead.next
+		while p and q:
+			q.next = p.next
+			q = q.next
+			if q:
+				p.next = q.next
+				p = p.next
+		return res
+
+
+
