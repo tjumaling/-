@@ -12,3 +12,8 @@ class Solution:
 		node.left = self.reConstructBinaryTree(pre[1:index+1],tin[:index])
 		node.right = self.reConstructBinaryTree(pre[index+1:],tin[index+1:])
 		return node
+
+
+___________________________________________________________________________________________________
+【平衡二叉树】
+输入一棵二叉树，判断该二叉树是否是平衡二叉树。
