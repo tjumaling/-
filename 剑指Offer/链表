@@ -1,0 +1,34 @@
+————————————————————————————————————————————————————————————————————————————————————————————————————
+【从尾到头打印链表】
+输入一个链表，按链表值从尾到头的顺序返回一个ArrayList。
+
+class Solution:
+	#不改变原List
+	def printListFromTailToHead(self, listNode):
+		stack = []
+		while listNode:
+			stack.append(listNode.val)
+			listNode = listNode.next
+		res = []
+		while stack:
+			res.append(stack.pop())
+		return res
+	#改变原List
+	def printListFromTailToHead(self, listNode):
+		if listNode and listNode.next:
+			pre = None
+			now = listNode
+			nxt = listNode.next
+			while nxt:
+				now.next = pre
+				pre = now
+				now = nxt
+				nxt = now.next
+			now.next = pre
+		else:
+			now = listNode
+		res = []
+		while now:
+			res.append(now.val)
+			now = now.next
+		return res
