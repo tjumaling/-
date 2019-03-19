@@ -59,3 +59,42 @@ class Solution:
 				stack.append(node.right)
 		return res
 	
+
+___________________________________________________________________________________________________
+【二叉树的镜像】
+操作给定的二叉树，将其变换为源二叉树的镜像。
+class Solution:
+	def Mirror(self, root):
+		if root == None:
+			return root
+		qu = [root]
+		while qu:
+			node = qu.pop(0)
+			if node.left == None and node.right == None:
+				continue 
+			temp = node.left
+			node.left = node.right
+			node.right = temp
+			if node.left:
+				qu.append(node.left)
+			if node.right:
+				qu.append(node.right)
+		return root
+			
+		
+___________________________________________________________________________________________________
+【二叉树中和为某一值的路径】	
+输入一颗二叉树的跟节点和一个整数，打印出二叉树中结点值的和为输入整数的所有路径。
+路径定义为从树的根结点开始往下一直到叶结点所经过的结点形成一条路径。
+(注意: 在返回值的list中，数组长度大的数组靠前)	
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	
