@@ -12,3 +12,50 @@ class Solution:
 			while self.push_stack:
 				self.pop_stack.append(self.push_stack.pop())
 		return self.pop_stack.pop()
+
+
+————————————————————————————————————————————————————————————————————————————————————————————————————
+【包含min函数的栈】
+定义栈的数据结构，请在该类型中实现一个能够得到栈中所含最小元素的min函数（时间复杂度应为O（1））。
+class Solution:
+	def __init__(self):
+		self.stack = []
+		self.helper = []
+	def push(self, node):
+		self.stack.append(node)
+		if self.helper:
+			self.helper.append(min(node,self.helper[-1]))
+		else:
+			self.helper.append(node)
+	def pop(self):
+		self.stack.pop()
+		self.helper.pop()
+	def min(self):
+		return self.helper[-1]
+	def top(self):
+		return self.stack[-1]
+		
+		
+————————————————————————————————————————————————————————————————————————————————————————————————————
+【栈的压入、弹出序列】
+输入两个整数序列，第一个序列表示栈的压入顺序，请判断第二个序列是否可能为该栈的弹出顺序。假设压入栈的所有数字均不相等。
+例如序列1,2,3,4,5是某栈的压入顺序，序列4,5,3,2,1是该压栈序列对应的一个弹出序列，但4,3,5,1,2就不可能是该压栈序列的弹出序列。
+（注意：这两个序列的长度是相等的）
+class Solution:
+	def IsPopOrder(self, pushV, popV):
+		stack = []
+		j = 0
+		for i in pushV:
+			stack.append(i)
+			while stack and popV[j] == stack[-1]:      #一定要判断stack是否为空
+				j += 1
+				stack.pop()
+		return stack == []
+		
+		
+		
+		
+		
+		
+		
+		
