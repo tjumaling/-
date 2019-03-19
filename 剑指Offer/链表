@@ -1,7 +1,6 @@
 ————————————————————————————————————————————————————————————————————————————————————————————————————
 【从尾到头打印链表】
 输入一个链表，按链表值从尾到头的顺序返回一个ArrayList。
-
 class Solution:
 	#不改变原List
 	def printListFromTailToHead(self, listNode):
@@ -32,3 +31,48 @@ class Solution:
 			res.append(now.val)
 			now = now.next
 		return res
+
+
+————————————————————————————————————————————————————————————————————————————————————————————————————
+【反转链表】
+输入一个链表，反转链表后，输出新链表的表头。
+class Solution:
+	def ReverseList(self, pHead):
+		if pHead == None or pHead.next == None:
+			return pHead
+		pre = None
+		now = pHead
+		nxt = pHead.next
+		while nxt:
+			now.next = pre
+			pre = now
+			now = nxt
+			nxt = now.next
+		now.next = pre
+		return now
+	
+
+————————————————————————————————————————————————————————————————————————————————————————————————————
+【合并两个排序的链表】
+输入两个单调递增的链表，输出两个链表合成后的链表，当然我们需要合成后的链表满足单调不减规则。
+class Solution:
+	def Merge(self, pHead1, pHead2):
+		p = ListNode(0)
+		res = p
+		while pHead1 and pHead2:
+			if pHead1.val < pHead2.val:
+				p.next = pHead1
+				pHead1 = pHead1.next
+			else:
+				p.next = pHead2
+				pHead2 = pHead2.next
+			p = p.next
+		while pHead1:
+			p.next = pHead1
+			p = p.next 
+			pHead1 = pHead1.next
+		while pHead2:
+			p.next = pHead2
+			p = p.next
+			pHead2 = pHead2.next
+		return res.next
