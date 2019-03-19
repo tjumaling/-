@@ -15,3 +15,23 @@ class Solution:
 			f = g + f
 			g = f - g
 		return g
+
+
+—————————————————————————————————————————————————————————————————————————————————————————————————————
+【跳台阶】
+一只青蛙一次可以跳上1级台阶，也可以跳上2级。求该青蛙跳上一个n级的台阶总共有多少种跳法（先后次序不同算不同的结果）。
+class Solution:
+	#占内存
+	def jumpFloor(self, n):
+		res = [0, 1, 2]
+		for i in range(3,n+1):
+			res.append(res[-1] + res[-2])
+		return res[n]
+	#不占内存
+	def jumpFloor(self, n):
+		g, f = 1, 2
+		for i in range(n-1):
+			f = g + f
+			g = f - g
+		return g
+		
