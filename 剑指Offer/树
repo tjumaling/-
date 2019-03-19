@@ -17,3 +17,45 @@ class Solution:
 ___________________________________________________________________________________________________
 【平衡二叉树】
 输入一棵二叉树，判断该二叉树是否是平衡二叉树。
+class Solution:
+	#一般循环，无剪枝
+	def IsBalanced_Solution(self, pRoot):
+		if pRoot == None:
+			return True
+		return abs(self.depth(pRoot.left)-self.depth(pRoot.right))<=1 and self.IsBalanced_Solution(pRoot.left) and self.IsBalanced_Solution(pRoot.right)
+	def depth(self, pRoot):
+		if pRoot == None:
+			return 0
+		return max(self.depth(pRoot.left),self.depth(pRoot.right)) + 1
+	#优化，加剪枝
+	def IsBalanced_Solution(self, pRoot):
+		return self.helper(pRoot) != -1
+	def helper(self, pRoot):
+		if pRoot == None:
+			return 0
+		left = self.helper(pRoot.left)
+		if left == -1:
+			return -1
+		right = self.helper(pRoot.right)
+		if right == -1:
+			return -1
+		return -1 if abs(left-right)>1 else 1 + max(left,right)
+
+
+___________________________________________________________________________________________________
+【从上往下打印二叉树】
+class Solution:
+	def PrintFromTopToBottom(self, root):
+		if root == None:
+			return []
+		stack = [root]
+		res = []
+		while stack:
+			node = stack.pop(0)
+			res.append(node.val)
+			if node.left:
+				stack.append(node.left)
+			if node.right:
+				stack.append(node.right)
+		return res
+	
