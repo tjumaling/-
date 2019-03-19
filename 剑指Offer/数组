@@ -29,12 +29,17 @@ class Solution:
 			return 0
 		l, r = 0, m-1
 		while l < r:
-			mid = (r + l) // 2
-			if rotateArray[mid] > rotateArray[l]:
-				l = mid
+			mid = (r + l) >> 1
+			if rotateArray[mid] > rotateArray[r]:
+				l = mid + 1
+			elif rotateArray[mid] == rotateArray[r]:
+				r = r - 1
 			else:
 				r = mid
 		return rotateArray[l]
 
 
 ——————————————————————————————————————————————————————————————————————————————————————————————————
+
+
+
