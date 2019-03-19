@@ -4,7 +4,14 @@
 class Solution:
 	#占内存
 	def Fibonacci(self, n):
-		res = [0,1,1]
-		for i in range(3,n):
+		res = [0,1]
+		for i in range(2,n+1):
 			res.append(res[-1]+res[-2])
-		return res[n-1]
+		return res[n]
+	#不占内存
+	def Fibonacci(self, n):
+		g, f = 0, 1
+		for i in range(n):
+			f = g + f
+			g = f - g
+		return g
