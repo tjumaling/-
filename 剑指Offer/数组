@@ -68,6 +68,45 @@ class Solution:
 
 
 ——————————————————————————————————————————————————————————————————————————————————————————————————
+【数组中出现次数超过一半的数字】
+数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。例如输入一个长度为9的数组{1,2,3,2,2,2,5,4,2}。
+由于数字2在数组中出现了5次，超过数组长度的一半，因此输出2。如果不存在则输出0。
+class Solution:
+	def MoreThanHalfNum_Solution(self, numbers):
+		if len(numbers) == 0:
+			return 0
+		l, r = 0, len(numbers)-1
+		index = self.partition(numbers, l, r)
+		while index != len(numbers)/2:
+			if index > len(numbers)/2:
+				r = index - 1
+				index = self.partition(numbers, l, r)
+			else:
+				l = index + 1
+				index = self.partition(numbers, l, r)
+		res = self.check(numbers, numbers[index])
+		if res:
+			return numbers[index]
+		else:
+			return 0
+	def partition(self, array, l, r):
+		x = array[r]
+		i = l - 1
+		for j in range(l, r):
+			if array[j] <= x:
+				i += 1
+				array[i], array[j] = array[j], array[i]
+		array[i+1], array[r] = array[r], array[i+1]
+		return i+1
+	def check(self, array, x):
+		count = 0
+		for i in array:
+			if i == x:
+				count += 1
+		return count > len(array)/2
+
+
+——————————————————————————————————————————————————————————————————————————————————————————————————
 【连续子数组的最大和】
 今天测试组开完会后,他又发话了:在古老的一维模式识别中,常常需要计算连续子向量的最大和,当向量全为正数的时候,问题很好解决。
 但是,如果向量中包含负数,是否应该包含某个负数,并期望旁边的正数会弥补它呢？
