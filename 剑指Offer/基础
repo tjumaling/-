@@ -1,5 +1,5 @@
 _____________________________________________________________________________________________________
-#冒泡排序
+【冒泡排序】
 def bubbleSort(Array):
 	m = len(Array)
 	if m <= 1:
@@ -12,7 +12,7 @@ def bubbleSort(Array):
 
 
 _____________________________________________________________________________________________________
-#快排
+【快排】
 #递归
 def quickSort(Array, l, r):
 	if l < r:
@@ -47,7 +47,7 @@ def quickSort(Array):
 		
 		
 _____________________________________________________________________________________________________
-#归并排序
+【归并排序】
 def mergeSort(Array):
 	if len(Array) == 1:
 		return Array
@@ -73,3 +73,63 @@ def merge(A, B):
 		C.append(B[j])
 		j += 1
 	return C
+
+
+_____________________________________________________________________________________________________
+【二叉树前中后遍历的递归版本】
+#前序遍历
+def preOrder(pHead):
+	if pHead:
+		print(pHead.val)
+		preOrder(pHead.left)
+		preOrder(pHead.right)
+#中序遍历	
+def inOrder(pHead):
+	if pHead:
+		inOrder(pHead.left)
+		print(pHead.val)
+		inOrder(pHead.right)
+#后序遍历
+def postOrder(pHead):
+	if pHead:
+		postOrder(pHead.left)
+		postOrder(pHead.right)
+		print(pHead.val)		
+
+_____________________________________________________________________________________________________
+【二叉树前中后遍历的非递归版本】
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
