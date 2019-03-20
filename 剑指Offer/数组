@@ -40,6 +40,46 @@ class Solution:
 
 
 ——————————————————————————————————————————————————————————————————————————————————————————————————
+【最小的K个数】
+输入n个整数，找出其中最小的K个数。例如输入4,5,1,6,2,7,3,8这8个数字，则最小的4个数字是1,2,3,4,。
+class Solution:
+	def GetLeastNumbers_Solution(self, tinput, k):
+		if len(tinput) == 0 or k > len(tinput) or k<=0:
+			return []
+		l, r = 0, len(tinput) - 1
+		index = self.Partition(tinput, l, r)
+		while index != k - 1:
+			if index > k-1:
+ 				r = index - 1
+				index = self.Partition(tinput, l, r)
+			else:
+				l = index + 1
+				index = self.Partition(tinput, l, r)
+		return sorted(tinput[:k])
+	def Partition(self,numbers,l,r):
+		x = numbers[r]
+		i = l - 1
+		for j in range(l,r):
+    			if numbers[j] <= x:
+				i += 1
+				numbers[i], numbers[j] = numbers[j], numbers[i]
+		numbers[i+1], numbers[r] = numbers[r], numbers[i+1]
+		return i+1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
