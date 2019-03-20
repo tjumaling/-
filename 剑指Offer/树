@@ -312,6 +312,28 @@ class Solution:
 		return left and right
 
 
-
-
-
+___________________________________________________________________________________________________
+【序列化二叉树】*****
+class Solution:
+	def __init__(self):
+		self.index = -1
+	def Serialize(self, root):
+		if root == None:
+			return '#,'
+		else:
+			return str(root.val) + ',' + self.Serialize(root.left) + self.Serialize(root.right)
+	def Deserialize(self, s):
+		L = s.split(',')
+		self.index += 1
+		if self.index >= len(s) or L[self.index] == '#':
+			return None
+		node = TreeNode(int(L[self.index]))
+		node.left = self.Deserialize(s)
+		node.right = self.Deserialize(s)
+		return node
+		
+		
+		
+		
+		
+		
