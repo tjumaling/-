@@ -61,6 +61,60 @@ class Solution:
 	
 
 ___________________________________________________________________________________________________
+【把二叉树打印成多行】
+class Solution:
+	def Print(self, pRoot):
+		res = []
+		if pRoot == None:
+			return res
+		qu = [pRoot]
+		while qu:
+			L = []
+			for i in range(len(qu)):
+				node = qu.pop(0)
+				L.append(node.val)
+				if node.left:
+					qu.append(node.left)
+				if node.right:
+					qu.append(node.right)
+			res.append(L[:])
+		return res
+
+
+___________________________________________________________________________________________________
+【按之字形顺序打印二叉树】
+请实现一个函数按照之字形打印二叉树，即第一行按照从左到右的顺序打印，第二层按照从右至左的顺序打印，
+第三行按照从左到右的顺序打印，其他行以此类推。
+class Solution:
+	def Print(self, pRoot):
+		res = []
+		if pRoot == None:
+			return res
+		stack = [pRoot]
+		flag = 0
+		while stack:
+			L = []
+			now = []
+			flag += 1
+			for i in range(len(stack)):
+				node = stack.pop()
+				now.append(node.val)
+				if flag % 2 == 1:
+					if node.left:
+						L.append(node.left)
+					if node.right:
+						L.append(node.right)
+				else:
+					if node.right:
+						L.append(node.right)
+					if node.left:
+						L.append(node.left)
+			stack = L
+			res.append(now[:])
+		return res
+
+
+___________________________________________________________________________________________________
 【二叉树的镜像】
 操作给定的二叉树，将其变换为源二叉树的镜像。
 class Solution:
@@ -81,7 +135,43 @@ class Solution:
 				qu.append(node.right)
 		return root
 			
-		
+
+___________________________________________________________________________________________________
+【对称的二叉树】
+请实现一个函数，用来判断一颗二叉树是不是对称的。注意，如果一个二叉树同此二叉树的镜像是同样的，定义其为对称的。
+class Solution:
+	#递归
+	def isSymmetrical(self, pRoot):
+		return self.helper(pRoot,pRoot)
+	def helper(self, p1, p2):
+		if p1 == None and p2 == None:
+			return True
+		if p1 == None or p2 == None:
+			return False
+		if p1.val != p2.val:
+			return False
+		return self.helper(p1.left, p2.right) and self.helper(p1.right, p2.left）
+	#非递归
+	def isSymmetrical(self, pRoot):
+		if pRoot == None:
+			return True
+		stack = [pRoot.left, pRoot.right]
+		while stack:
+			right = stack.pop()
+			left = stack.pop()
+			if right == None and left == None:
+				continue
+			if right == None or left == None:
+				return False
+			if right.val != left.val:
+				return False
+			stack.append(right.left)
+			stack.append(left.right)
+			stack.append(right.right)
+			stack.append(left.left)
+		return True
+
+
 ___________________________________________________________________________________________________
 【二叉树中和为某一值的路径】	
 输入一颗二叉树的跟节点和一个整数，打印出二叉树中结点值的和为输入整数的所有路径。
@@ -111,11 +201,88 @@ ________________________________________________________________________________
 【二叉搜索树与双向链表】
 输入一棵二叉搜索树，将该二叉搜索树转换成一个排序的双向链表。要求不能创建任何新的结点，只能调整树中结点指针的指向。
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+___________________________________________________________________________________________________
+【二叉树的下一个结点】
+给定一个二叉树和其中的一个结点，请找出中序遍历顺序的下一个结点并且返回。
+注意，树中的结点不仅包含左右子结点，同时包含指向父结点的指针。
+class Solution:
+	def GetNext(self, pNode):
+		if pNode.right:
+			p = pNode.right	
+			while p.left:
+				p = p.left
+			return p
+		father = pNode.next
+		if father and father.left == pNode:
+			return father
+		else:
+			while father and father.left != pNode:
+				pNode = father
+				father = father.next
+			return father
 		
 		
-		
-		
-		
-		
-		
-	
+___________________________________________________________________________________________________	
+【二叉树的深度】
+输入一棵二叉树，求该树的深度。
+从根结点到叶结点依次经过的结点（含根、叶结点）形成树的一条路径，最长路径的长度为树的深度。	
+class Solution:
+	#BFS
+	def TreeDepth(self, pRoot):
+		if pRoot == None:
+			return 0
+		qu = [pRoot]
+		depth = 0
+		while qu:
+			depth += 1
+			for i in range(len(qu)):
+				node = qu.pop(0)
+				if node.left:
+					qu.append(node.left)
+				if node.right:
+					qu.append(node.right)
+		return depth
+	#DFS递归
+	def TreeDepth(self, pRoot):
+		if pRoot == None:
+			return 0
+		return self.helper(pRoot)
+	def helper(self, pRoot):
+		if pRoot == None:
+			return 0
+		left = right = 0
+		if pRoot.left:
+			left = self.helper(pRoot.left)
+		if pRoot.right:
+			right = self.helper(pRoot.right)
+		return max(left, right) + 1
+					
+
+___________________________________________________________________________________________________
+【二叉搜索树的第k个结点】
+给定一棵二叉搜索树，请找出其中的第k小的结点。例如， （5，3，7，2，4，6，8）    中，按结点数值大小顺序第三小结点的值为4。
+class Solution:
+	def KthNode(self, pRoot, k):
+
+
+
+
+
+
+
+
