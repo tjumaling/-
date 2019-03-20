@@ -275,12 +275,41 @@ class Solution:
 
 ___________________________________________________________________________________________________
 【二叉搜索树的第k个结点】
-给定一棵二叉搜索树，请找出其中的第k小的结点。例如， （5，3，7，2，4，6，8）    中，按结点数值大小顺序第三小结点的值为4。
+给定一棵二叉搜索树，请找出其中的第k小的结点。
+例如，（5，3，7，2，4，6，8）中，按结点数值大小顺序第三小结点的值为4。
 class Solution:
 	def KthNode(self, pRoot, k):
 
 
 
+
+
+
+___________________________________________________________________________________________________
+【二叉搜索树的后序遍历序列】
+输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历的结果。
+如果是则输出Yes,否则输出No。假设输入的数组的任意两个数字都互不相同。
+class Solution:
+	def VerifySquenceOfBST(self, sequence):
+		if len(sequence) == 0:
+			return False
+		if len(sequence) == 1:
+			return True
+		m, n = 0, len(sequence)-1
+		index = 0
+		while index <= n:
+			if sequence[index] >= sequence[n]:
+				break
+			index += 1
+		for j in range(index,n):
+			if sequence[j] < sequence[n]:
+				return False
+		left = right = True
+		if sequence[:index]:
+			left = self.VerifySquenceOfBST(sequence[:index])
+		if sequence[index:n]:
+			right = self.VerifySquenceOfBST(sequence[index:n])
+		return left and right
 
 
 
