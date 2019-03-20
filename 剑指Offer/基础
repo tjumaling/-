@@ -6,8 +6,8 @@ def bubbleSort(Array):
 		return Array
 	for i in range(m-1):
 		for j in range(m-1-i):
-		if Array[j] > Array[j+1]:
-			Array[j], Array[j+1] = Array[j+1], Array[j]
+			if Array[j] > Array[j+1]:
+				Array[j], Array[j+1] = Array[j+1], Array[j]
 	return Array
 
 
@@ -43,7 +43,10 @@ def quickSort(Array):
 				i += 1
 				Array[j], Array[i] = Array[i], Array[j]
 		Array[i+1], Array[right] = Array[right], Array[i+1]
-		stack.extend([left, i, i+2, right])
+		if left < i:
+			stack.extend([left, i])
+		if i+2 < right:
+			stack.extend([i+2, right])
 		
 		
 _____________________________________________________________________________________________________
@@ -55,7 +58,6 @@ def mergeSort(Array):
 	left = mergeSort(Array[:middle])
 	right = mergeSort(Array[middle:])
 	return merge(left, right)
-
 def merge(A, B):
 	C = []
 	i = j = 0
@@ -98,7 +100,36 @@ def postOrder(pHead):
 
 _____________________________________________________________________________________________________
 【二叉树前中后遍历的非递归版本】
-
+#前序遍历
+def preOrder(pHead):
+	stack = []
+	p = pHead
+	res = []
+	while p or stack:
+		while p != None:
+			res.append(p.val)
+			stack.append(p)
+			p = p.left
+		if stack != []:
+			p = stack.pop()
+			p = p.right
+	return res
+#中序遍历	
+def inOrder(pHead):
+	stack = []
+	res = []
+	p = pHead
+	while p or stack:
+		while p != None:
+			stack.append(p)
+			p = p.left
+		if stack != []:
+			p = stack.pop()
+			res.append(p.val)
+			p = p.right
+	return res
+#后序遍历
+def postOrder(pHead):
 
 
 
