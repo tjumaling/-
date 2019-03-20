@@ -137,4 +137,52 @@ class Solution:
 		return res
 
 
+————————————————————————————————————————————————————————————————————————————————————————————————————
+【链表中倒数第k个结点】
+输入一个链表，输出该链表中倒数第k个结点。
+class Solution:
+	def FindKthToTail(self, head, k):
+		fast = slow = head
+		while fast and k>0:
+			k -= 1
+			fast = fast.next
+		if k>0:
+			return None
+		while fast:
+			fast = fast.next
+			slow = slow.next
+		return slow
+
+
+————————————————————————————————————————————————————————————————————————————————————————————————————
+【链表中环的入口结点】
+class Solution:
+	def EntryNodeOfLoop(self, pHead):
+		node = self.haveLoop(pHead)
+		if node == None:
+			return None
+		m = self.countN(node)
+		fast = slow = pHead
+		while m > 0:
+			m -= 1
+			fast = fast.next
+		while fast != slow:
+			fast = fast.next
+			slow = slow.next
+		return slow
+	def haveLoop(self, pHead):
+		slow = fast = pHead
+		while fast and fast.next:
+			slow = slow.next
+			fast = fast.next.next
+			if slow == fast:
+				return slow
+		return None
+	def countN(self, pHead):
+		p = pHead.next
+		m = 1                                  #这里搞错了，应该赋值1，不是0
+		while p!=pHead:
+			p = p.next
+			m += 1
+		return m
 
