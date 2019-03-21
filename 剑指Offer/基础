@@ -37,7 +37,6 @@ def partition(Array, l, r):
 			Array[i], Array[j] = Array[j], Array[i]
 	Array[i+1], Array[r] = Array[r], Array[i+1]
 	return i+1
-	
 #非递归
 def quickSort(Array):
 	l, r = 0, len(Array)-1
@@ -142,6 +141,7 @@ def postOrder(pHead):
 		postOrder(pHead.left)
 		postOrder(pHead.right)
 		print(pHead.val)		
+
 
 _____________________________________________________________________________________________________
 【二叉树前中后遍历的非递归版本】
