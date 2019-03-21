@@ -1,7 +1,7 @@
 ——————————————————————————————————————————————————————————————————————————————————————————————————
 【二维数组的查找】
 在一个二维数组中（每个一维数组的长度相同），每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。
-请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。
+请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。O(m+n)
 class Solution:
     def Find(self, target, array):
     	m, n = len(array), len(array[0])
@@ -194,9 +194,45 @@ class Solution:
 		return False
 		
 		
-		
-		
-		
+——————————————————————————————————————————————————————————————————————————————————————————————————
+【数组中重复的数字，不修改数组】		
+在一个长度为n+1的数组里，所有数字都在1-n之间，所以数组中至少有一个数字是重复的。
+请找出数组中任意一个重复数字，但不能修改输入的数组。
+1）利用一个辅助数组，方法同上，空间n，时间O(n)。
+2）二分查找，时间换空间，函数countRange被调用O(logn)次，每次O(n)，共O(nlogn)。
+class Solution:
+	def duplication(self, numbers):
+		if len(numbers) <= 1:
+			return -1
+		l, r = 0, len(numbers)-1
+		while l <= r:
+			mid = (l + r) >> 1
+			count = self.countRange(numbers, l, mid)
+			if l == mid:
+				if count > 1:
+					return numbers[l]
+				else:
+					break
+			if count > l - mid + 1:
+				r = mid
+			else:
+				l = mid + 1
+		return -1
+	def countRange(self, numbers, start, right):
+		m = 0
+		for i in numbers:
+			if i <= right and i >= start:
+				m += 1
+		return m 
+
+
+
+
+
+
+
+
+
 		
 		
 		
