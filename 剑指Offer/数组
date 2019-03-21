@@ -17,6 +17,39 @@ class Solution:
 
 
 ——————————————————————————————————————————————————————————————————————————————————————————————————
+【顺时针打印矩阵】
+输入一个矩阵，按照从外向里以顺时针的顺序依次打印出每一个数字，
+例如，如果输入如下4 X 4矩阵： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 
+则依次打印出数字1,2,3,4,8,12,16,15,14,13,9,5,6,7,11,10.
+class Solution:
+	def printMatrix(self, matrix):
+		if len(matrix)==0 or len(matrix[0])==0:
+			return []
+		rows = len(matrix)
+		cols = len(matrix[0])
+		res = []
+		start = 0
+		while start*2 < rows and start*2 < cols:
+			self.printCircle(matrix, rows, cols, start, res)
+			start += 1
+		return res
+	def printCircle(self, matrix, rows, cols, start, res):
+		startX = startY = start
+		endX, endY = rows-start-1, cols-start-1
+		for i in range(startY, endY+1):
+			res.append(matrix[startX][i])
+		if startX < endX:
+			for i in range(startX+1, endX+1):
+				res.append(matrix[i][endY])
+		if startX < endX and startY < endY:
+			for i in range(endY-1,startY-1,-1):
+				res.append(matrix[endX][i])
+		if endX - startX > 1 and startY < endY:
+			for i in range(endX-1,startX,-1):
+				res.append(matrix[i][startY])
+    
+    
+——————————————————————————————————————————————————————————————————————————————————————————————————
 【旋转数组的最小数字】*****
 把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。 
 输入一个非减排序的数组的一个旋转，输出旋转数组的最小元素。 
