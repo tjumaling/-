@@ -7,13 +7,25 @@
 class Solution:
 	def movingCount(self, threshold, rows, cols):
 		isVisited = [[False for i in range(cols)] for j in range(rows)]
-		res = 0
-		for i in range(rows):
-			for j in range(cols):
-				if self.isLegal(rows, cols, i, j):
+		return self.isLegal(rows, cols, 0, 0, threshold, isVisited)
 					
-	def isLegal(self, m, n, i, j):
-
+	def isLegal(self, m, n, i, j, threshold, isVisited):
+		count = 0
+		if i>=0 and i<m and j>=0 and j<n and isVisited[i][j]==False and self.digitSum(i, j, threshold):
+			isVisited[i][j] = True
+			count = 1 + self.isLegal(m, n, i-1, j, threshold, isVisited) + self.isLegal(m, n, i+1, j, threshold, isVisited) +/
+				self.isLegal(m, n, i, j-1, threshold, isVisited) + self.isLegal(m, n, i, j+1, threshold, isVisited)  
+		return count
+	def digitSum(self, m, n, threshold):
+		count = 0
+		while m:
+			count += m % 10
+			m = m // 10
+		while n:
+			count += n % 10
+			n = n // 10
+		return count <= threshold
+		
 
 ————————————————————————————————————————————————————————————————————————————————————————————————————————————
 【矩阵中的路径】
