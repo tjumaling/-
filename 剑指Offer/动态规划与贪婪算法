@@ -1,0 +1,36 @@
+——————————————————————————————————————————————————————————————————————————————————————————————————————
+【剪绳子】
+给你一根长度为n的绳子，请把绳子剪成m段(m,n都是整数n>1,m>1)，每段绳子长度乘积的最大值是多少？
+例如，当绳子长度为8时，把它减为2、3、3三段，最大乘积为18。
+#动态规划
+class Solution:
+	def maxProductAfterCutting(self, n):
+		if n < 2:
+			return 0
+		if n == 2:
+			return 1
+		if n == 3:
+			return 2
+		dp = [0] * (n + 1)
+		dp[0] = 0
+		dp[1] = 1
+		dp[2] = 2
+		dp[3] = 3
+		for i in range(4,n+1):
+			for j in range(1,i//2+1):
+				dp[i] = max(dp[i],dp[j]*dp[i-j])
+		return dp[n]
+#贪婪算法
+class Solution:
+	def maxProductAfterCutting(self, n):
+		if n < 2:
+			return 0
+		if n == 2:
+			return 1
+		if n == 3:
+			return 2
+		res = 1
+		while n >= 5:
+			res *= 3
+			n -= 3
+		return n * res
