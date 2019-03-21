@@ -87,6 +87,42 @@ def merge(A, B):
 
 
 _____________________________________________________________________________________________________
+【二分查找】
+#循环
+def binarySearch(array, number):
+	m = len(array)
+	if m == 0:
+		return -1
+	l, r = 0, m - 1
+	while l <= r:
+		mid = (l + r) >> 1
+		if array[mid] == number:
+			return mid
+		elif array[mid] < number:
+			l = mid + 1
+		else:
+			r = mid - 1
+	return -1
+#递归
+def binarySearch(array, number):
+	m = len(array)
+	if m == 0:
+		return -1
+	l, r = 0, m - 1
+	return helper(array, number, l, r)
+def helper(array, number, l, r):
+	if l > r:
+		return -1
+	mid = (l + r) >> 1
+	if array[mid] == number:
+		return mid
+	elif array[mid] > number:
+		return helper(array, number, l, mid-1)
+	else:
+		return helper(array, number, mid+1, r)
+	
+	
+_____________________________________________________________________________________________________
 【二叉树前中后遍历的递归版本】
 #前序遍历
 def preOrder(pHead):
