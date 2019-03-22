@@ -27,8 +27,31 @@ class Solution:
 		return False
 
 
-
-
+————————————————————————————————————————————————————————————————————————————————————————————————————————
+【打印从1到最大的n位数】
+输入数字n，按顺序打印从1到最大的n位十进制数。
+class Solution:
+	def print1ToMaxOfNDigits(self, n):
+		if n <= 0:
+			return
+		for i in '0123456789':
+			s = i
+			self.printRecursively(s, n)
+		return
+	def printRecursively(self, s, n):
+		if len(s) == n:
+			self.printNumber(s)
+			return
+		for i in '0123456789':
+			s0 = s + i
+			self.printRecursively(s0, n)
+		return
+	def printNumber(self, s):
+		for i in range(len(s)):
+			if s[i] != '0':
+				break
+		print s[i:]
+				
 
 
 
