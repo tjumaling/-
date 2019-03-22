@@ -75,8 +75,27 @@ class Solution:
 		return black <= zeroNum
 
 
-
-
+—————————————————————————————————————————————————————————————————————————————————————————————————————
+【数值的整数次方】
+给定一个double类型的浮点数base和int类型的整数exponent。求base的exponent次方。O(logn)
+class Solution:
+	def Power(self, base, exponent):
+		if base == 0:
+			return 0
+		if exponent == 0:
+			return 1
+		if exponent < 0:
+			exponent = -exponent
+			base = 1.0 / base
+		return self.helper(base, exponent)
+	def helper(self, base, exponent):
+		res = 1
+		while exponent:
+			if exponent & 1:
+				res *= base
+			base *= base
+			exponent = exponent >> 1
+		return res
 
 
 
