@@ -1,1 +1,178 @@
+——————————————————————————————————————————————————————————————————————————————————————————————————————————
+【148】Sort List
+Sort a linked list in O(n log n) time using constant space complexity.
+#有复杂度限制，因此用归并排序
+class Solution(object):
+	def sortList(self, head):
+		if head == None or head.next == None:
+			return head
+		mid = self.getMid(head)
+		right = self.sortList(mid.next)
+		mid.next = None
+		left = self.sortList(head)
+		return self.merge(left, right)
+	def getMid(self, head):
+		if head == None:
+			return None
+		fast = head.next
+		slow = head
+		while fast and fast.next:
+			fast = fast.next.next
+			slow = slow.next
+		return slow
+	def merge(self, p1, p2):
+		dummy = ListNode(0)
+		cur = dummy
+		while p1 and p2:
+			if p1.val <= p2.val:
+				cur.next = p1
+				p1 = p1.next
+			else:
+				cur.next = p2
+				p2 = p2.next
+			cur = cur.next
+		if p1:
+			cur.next = p1
+		if p2:
+			cur.next = p2
+		return dummy.next
+		
+		
+——————————————————————————————————————————————————————————————————————————————————————————————————————————	
+【143】Reorder List
+Given a singly linked list L: L 0→L 1→…→L n-1→L n,
+reorder it to: L 0→L n →L 1→L n-1→L 2→L n-2→…
+You must do this in-place without altering the nodes' values.
+For example,
+Given{1,2,3,4}, reorder it to{1,4,2,3}.
+class Solution(object):
+	def reorderList(self, head):
+		if head == None or head.next == None:
+			return head
+		mid = self.getMid(head)
+		right = self.reverse(mid.next)
+		mid.next = None
+		return self.merge(head, right)
+	def getMid(self, head):
+		if head == None:
+			return head
+		slow, fast = head, head.next
+		while fast and fast.next:
+			slow = slow.next
+			fast = fast.next.next
+		return slow
+	def reverse(self, head):
+		if head == None or head.next == None:
+			return head
+		pre = None
+		cur = head
+		nextNode = cur.next
+		while cur and cur.next:
+			cur.next = pre
+			pre = cur
+			cur = nextNode
+			nextNode = cur.next
+		cur.next = pre
+		return cur
+	def merge(self, p1, p2):
+		dummy = ListNode(0)
+		cur = dummy
+		while p1 and p2:
+			cur.next = p1
+			p1 = p1.next
+			cur = cur.next
+			cur.next = p2
+			p2 = p2.next
+			cur = cur.next
+		cur.next = p1
+		return dummy.next
+
+
+——————————————————————————————————————————————————————————————————————————————————————————————————————————
+【141】Linked List Cycle
+Given a linked list, determine if it has a cycle in it.
+class Solution(object):
+	def hasCycle(self, head):
+		if head == None or head.next == None:
+			return False
+		fast = slow = head
+		while fast and fast.next:
+			slow = slow.next
+			fast = fast.next.next
+			if slow == fast:
+				return True
+		return False
+
+
+——————————————————————————————————————————————————————————————————————————————————————————————————————————
+【142】Linked List Cycle II
+Given a linked list, return the node where the cycle begins. If there is no cycle, return null.
+class Solution(object):
+	def detectCycle(self, head):
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
