@@ -1,0 +1,140 @@
+————————————————————————————————————————————————————————————————————————————————————————————————————
+【134】Gas Station
+There are N gas stations along a circular route, where the amount of gas at station i is gas[i].
+You have a car with an unlimited gas tank and it costs cost[i] of gas to travel from station i to its next station (i+1).
+You begin the journey with an empty tank at one of the gas stations.
+Return the starting gas station's index if you can travel around the circuit once in the clockwise direction, otherwise return -1.
+Input: 
+gas  = [1,2,3,4,5]
+cost = [3,4,5,1,2]
+Output: 3
+#贪心算法，从最后一个出发，第一个结束，如果油不够，需要start-=1，加油，如果油充足，end+=1，耗油
+class Solution(object):
+	def canCompleteCircuit(self, gas, cost):
+		start = len(gas)-1
+		end = 0
+		tank = gas[start] - cost[start]
+		while end < start:
+			if tank >= 0:
+				tank += gas[end] - cost[end]
+				end += 1
+			else:
+				start -= 1
+				tank += gas[start] - cost[start]
+		return start if tank >= 0 else -1		
+
+
+————————————————————————————————————————————————————————————————————————————————————————————————————
+【84】Largest Rectangle in Histogram
+Given n non-negative integers representing the histogram's bar height where the width of each bar is 1, 
+find the area of largest rectangle in the histogram.
+class Solution(object):
+	def largestRectangleArea(self, heights):
+		stack = []
+		res = 0
+		for i in heights:
+			if stack==[] or stack[-1]<=i:
+				stack.append(i)
+			else:
+				cnt = 0
+				while stack and stack[-1]>i:
+					a = stack.pop()
+					cnt += 1
+					res = max(res, cnt*a)
+				stack.extend([i]*(cnt+1))
+		cnt = 0
+		while stack:
+			cnt += 1
+			a = stack.pop()
+			res = max(res, a*cnt)
+		return res
+
+
+
+————————————————————————————————————————————————————————————————————————————————————————————————————
+【85】Maximal Rectangle
+Given a 2D binary matrix filled with 0's and 1's, find the largest rectangle containing only 1's and return its area.
+class Solution(object):
+	def maximalRectangle(self, matrix):
+		if not matrix or len(matrix)==0 or len(matrix[0])==0:
+			return 0
+		m, n = len(matrix), len(matrix[0])
+		h = [0 for i in range(n)]
+		res = 0
+		for i in range(m):
+			stack = []
+			for j in range(n):
+				if matrix[i][j] == '1':
+					h[j] += 1
+				else:
+					h[j] = 0
+			for j in range(n):
+				if stack==[] or stack[-1]<=h[j]:
+					stack.append(h[j])
+				else:
+					cnt = 0
+					while stack and stack[-1] > h[j]:
+						cnt += 1
+						a = stack.pop()
+						res = max(res, a*cnt)
+					stack.extend([h[j]]*(cnt+1))
+			cnt = 0
+			while stack:
+				cnt += 1
+				a = stack.pop()
+				res = max(res, a*cnt)
+		return res
+
+
+————————————————————————————————————————————————————————————————————————————————————————————————————
+【55】Jump Game  
+Given an array of non-negative integers, you are initially positioned at the first index of the array.
+Each element in the array represents your maximum jump length at that position.
+Determine if you are able to reach the last index.
+Input: [2,3,1,1,4]
+Output: true
+Explanation: Jump 1 step from index 0 to 1, then 3 steps to the last index.
+class Solution(object):
+	def canJump(self, nums):
+		if len(nums) == 0:
+			return False
+		farest = 0
+		for i in range(len(nums)):
+			if i > farest:
+				return False
+			farest = max(farest, i+nums[i])
+		return True
+
+
+————————————————————————————————————————————————————————————————————————————————————————————————————
+【45】Jump Game II *****
+Given an array of non-negative integers, you are initially positioned at the first index of the array.
+Each element in the array represents your maximum jump length at that position.
+Your goal is to reach the last index in the minimum number of jumps.
+Input: [2,3,1,1,4]
+Output: 2
+class Solution(object):
+	def jump(self, nums):
+		step = maxstep = laststep = 0
+		for i in range(len(nums)):
+			if i > laststep:
+				step += 1
+				laststep = maxstep
+			maxstep = max(maxstep, i+nums[i])
+		return step
+		
+
+
+————————————————————————————————————————————————————————————————————————————————————————————————————
+
+
+
+————————————————————————————————————————————————————————————————————————————————————————————————————
+
+
+
+————————————————————————————————————————————————————————————————————————————————————————————————————
+
+
+
+————————————————————————————————————————————————————————————————————————————————————————————————————
