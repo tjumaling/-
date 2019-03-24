@@ -2,7 +2,6 @@
 【111】Minimum Depth of Binary Tree    
 Given a binary tree, find its minimum depth.
 The minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node.
-
 class Solution(object):
 	#BFS
 	def minDepth(self, root):
@@ -20,19 +19,6 @@ class Solution(object):
 				if node.right:
 					qu.append(node.right)
 			res += 1
-			
-	#DFS
-	def minDepth(self, root):
-		if root == None:
-			return 0
-		stack = [root]
-		res = float('inf')
-		while stack:
-			node = stack[-1]
-			while node.left:
-				node = node.left
-				stack.append(node)
-				
 	#递归
 	def minDepth(self, root):
 		if root == None:
@@ -46,4 +32,43 @@ class Solution(object):
 			
 			
 ——————————————————————————————————————————————————————————————————————————————————————————————————————————
+【106】Construct Binary Tree from Inorder and Postorder Traversal
+Given inorder and postorder traversal of a tree, construct the binary tree.
+Note:
+You may assume that duplicates do not exist in the tree.
+同《剑指Offer》
 
+
+——————————————————————————————————————————————————————————————————————————————————————————————————————————
+【144】Binary Tree Preorder Traversal
+Given a binary tree, return the preorder traversal of its nodes' values.
+#递归
+#非递归
+
+
+——————————————————————————————————————————————————————————————————————————————————————————————————————————
+【145】Binary Tree Postorder Traversal
+Given a binary tree, return the postorder traversal of its nodes' values.
+#递归
+#非递归
+
+
+——————————————————————————————————————————————————————————————————————————————————————————————————————————
+【129】Sum Root to Leaf Numbers
+Given a binary tree containing digits from 0-9 only, each root-to-leaf path could represent a number.
+An example is the root-to-leaf path 1->2->3 which represents the number 123.
+Find the total sum of all root-to-leaf numbers.
+Note: A leaf is a node with no children.
+Given a binary tree containing digits from 0-9 only, each root-to-leaf path could represent a number.
+An example is the root-to-leaf path 1->2->3 which represents the number 123.
+Find the total sum of all root-to-leaf numbers.
+
+
+
+——————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+
+——————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+
+——————————————————————————————————————————————————————————————————————————————————————————————————————————
