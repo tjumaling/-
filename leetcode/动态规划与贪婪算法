@@ -50,7 +50,6 @@ class Solution(object):
 		return res
 
 
-
 ————————————————————————————————————————————————————————————————————————————————————————————————————
 【85】Maximal Rectangle
 Given a 2D binary matrix filled with 0's and 1's, find the largest rectangle containing only 1's and return its area.
@@ -124,12 +123,130 @@ class Solution(object):
 		return step
 		
 
+————————————————————————————————————————————————————————————————————————————————————————————————————
+【139】Word Break
+Given a non-empty string s and a dictionary wordDict containing a list of non-empty words, 
+determine if s can be segmented into a space-separated sequence of one or more dictionary words.
+Note:
+The same word in the dictionary may be reused multiple times in the segmentation.
+You may assume the dictionary does not contain duplicate words.
+Example 1:
+Input: s = "leetcode", wordDict = ["leet", "code"]
+Output: true
+class Solution(object):
+	def wordBreak(self, s, wordDict):
+		dp = [False for i in range(len(s)+1)]
+		dp[0] = True
+		for i in range(1,len(s)+1):
+			for j in range(i):
+				if dp[j] and s[j:i] in wordDict:
+					dp[i] = True
+					break
+		return dp[-1]
+
+
+————————————————————————————————————————————————————————————————————————————————————————————————————
+【140】Word Break II    
+Given a non-empty string s and a dictionary wordDict containing a list of non-empty words, 
+add spaces in s to construct a sentence where each word is a valid dictionary word. 
+Return all such possible sentences.
+Note:
+The same word in the dictionary may be reused multiple times in the segmentation.
+You may assume the dictionary does not contain duplicate words.
+Input:
+s = "catsanddog"
+wordDict = ["cat", "cats", "and", "sand", "dog"]
+Output:
+[
+  "cats and dog",
+  "cat sand dog"
+]
+class Solution(object):
+	def wordBreak(self, s, wordDict):
+		memo = {}
+		return self.DFS(s, wordDict, memo)
+	def DFS(self, s, wordDict, memo):
+		if len(s) == 0:
+			return []
+		if s in memo:
+			return memo[s]
+		res = []
+		if s in wordDict:
+			res.append(s)
+		for i in range(1,len(s)):
+			partition = s[:i]
+			if partition in wordDict:
+				for other in self.DFS(s[i:], wordDict, memo):
+					res.append(partition + ' ' + other)
+		memo[s] = res
+		return res
+					
+
+————————————————————————————————————————————————————————————————————————————————————————————————————
+【135】Candy
+There are N children standing in a line. Each child is assigned a rating value.
+You are giving candies to these children subjected to the following requirements:
+Each child must have at least one candy.
+Children with a higher rating get more candies than their neighbors.
+What is the minimum candies you must give?
+Example 1:
+Input: [1,0,2]
+Output: 5
+Explanation: You can allocate to the first, second and third child with 2, 1, 2 candies respectively.
+class Solution(object):
+	def candy(self, ratings):
+		if len(ratings) == 0:
+			return 0
+		dp = [1] * len(ratings)
+		for i in range(1,len(ratings)):
+			if ratings[i] > ratings[i-1]:
+				dp[i] = dp[i-1] + 1
+		for i in range(len(ratings)-2,-1,-1):
+			if ratings[i] > ratings[i+1] and dp[i] <= dp[i+1]:
+				dp[i] = dp[i+1] + 1
+		return sum(dp)
+		
+		
+————————————————————————————————————————————————————————————————————————————————————————————————————
+【132】Palindrome Partitioning II    ??????Time Limit
+Given a string s, partition s such that every substring of the partition is a palindrome.
+Return the minimum cuts needed for a palindrome partitioning of s.
+Example:
+Input: "aab"
+Output: 1
+Explanation: The palindrome partitioning ["aa","b"] could be produced using 1 cut.
+class Solution(object):
+	def minCut(self, s):
+		if self.isValid(s):
+			return 0
+		dp = [i for i in range(len(s))]
+		for i in range(len(s)):
+			if self.isValid(s[:i+1]):
+				dp[i] = 0
+				continue
+			else:
+				for j in range(1, i+1):
+					if self.isValid(s[j:i+1]):
+						dp[i] = min(dp[i], dp[j-1]+1)
+					else:
+						dp[i] = min(dp[i], dp[j-1]+i-j+1)
+		return dp[-1]
+	def isValid(self, s):
+		if len(s) <= 1:
+			return True
+		m, n = 0, len(s)-1
+		while m <= n:
+			if s[m] != s[n]:
+				return False
+			m += 1
+			n -= 1
+		return True
+
 
 ————————————————————————————————————————————————————————————————————————————————————————————————————
 
 
 
-————————————————————————————————————————————————————————————————————————————————————————————————————
 
 
 
@@ -137,4 +254,87 @@ class Solution(object):
 
 
 
+
+
+
 ————————————————————————————————————————————————————————————————————————————————————————————————————
+
+
+
+
+
+
+————————————————————————————————————————————————————————————————————————————————————————————————————
+
+
+
+
+
+
+————————————————————————————————————————————————————————————————————————————————————————————————————
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
