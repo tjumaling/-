@@ -186,28 +186,59 @@ class Solution(object):
 	def pathSum(self, root, sum):
 		res = []
 		path = []
-		sfl
+		self.helper(root, sum, res, path)
+		return res
+	def helper(self, root, sum, res, path):
+		if root == None:
+			return 
+		path.append(root.val)
+		if root.val == sum and root.left == None and root.right == None:
+			res.append(path[:])
+		if root.left:
+			self.helper(root.left, sum-root.val, res, path)
+		if root.right:
+			self.helper(root.right, sum-root.val, res, path)
+		path.pop()
 	
-	
-	
-	
-——————————————————————————————————————————————————————————————————————————————————————————————————————————
-
-
-
-——————————————————————————————————————————————————————————————————————————————————————————————————————————
-
-
-
-
-——————————————————————————————————————————————————————————————————————————————————————————————————————————
-
-
-
 
 ——————————————————————————————————————————————————————————————————————————————————————————————————————————
+【110】Balanced Binary Tree
+Given a binary tree, determine if it is height-balanced.
+class Solution(object):
+	def isBalanced(self, root):
+		return self.helper(root) != -1
+	def helper(self, root):
+		if root == None:
+			return 0
+		left = self.helper(root.left)
+		if left == -1:
+			return -1
+		right = self.helper(root.right)
+		if right == -1:
+			return -1
+		return -1 if abs(left-right)>1 else 1 + max(left, right)
 
 
+——————————————————————————————————————————————————————————————————————————————————————————————————————————
+【107】Binary Tree Level Order Traversal II
+Given a binary tree, return the bottom-up level order traversal of its nodes' values. 
+(ie, from left to right, level by level from leaf to root).
+#层序遍历，同《剑指Offer》
+
+
+——————————————————————————————————————————————————————————————————————————————————————————————————————————
+【106】Construct Binary Tree from Inorder and Postorder Traversal
+Given inorder and postorder traversal of a tree, construct the binary tree.
+Note:
+You may assume that duplicates do not exist in the tree.
+#根据中序遍历和后序遍历重建搜索二叉树
+#同《剑指Offer》
+
+
+——————————————————————————————————————————————————————————————————————————————————————————————————————————
+【105】Construct Binary Tree from Preorder and Inorder Traversal
+#根据中序遍历和前序遍历重建搜索二叉树
+#同《剑指Offer》
 
 
 
