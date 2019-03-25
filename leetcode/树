@@ -62,13 +62,177 @@ Note: A leaf is a node with no children.
 Given a binary tree containing digits from 0-9 only, each root-to-leaf path could represent a number.
 An example is the root-to-leaf path 1->2->3 which represents the number 123.
 Find the total sum of all root-to-leaf numbers.
+class Solution(object):
+	def sumNumbers(self, root):
+		if root == None:
+			return 0
+		self.res = sumNow = 0
+		self.DFS(root, sumNow)
+		return self.res
+	def DFS(self, root, sumNow):
+		if root == None:
+			return
+		sumNow = sumNow * 10 + root.val
+		if root.left == None and root.right == None:
+			self.res += sumNow
+		if root.left:
+			self.DFS(root.left, sumNow)
+		if root.right:
+			self.DFS(root.right, sumNow)
+		sumNow //= 10
+		
+		
+——————————————————————————————————————————————————————————————————————————————————————————————————————————
+【124】Binary Tree Maximum Path Sum
+Given a non-empty binary tree, find the maximum path sum.
+For this problem, a path is defined as any sequence of nodes from some starting node to any node in the tree along the parent-child connections. 
+The path must contain at least one node and does not need to go through the root.
+class Solution(object):
+	def maxPathSum(self, root):
+		self.maxValue = float('-inf')
+		self.helper(root)
+		return self.maxValue
+	def helper(self, root):
+		if root == None:
+			return 
+		left = right = 0
+		left = max(0, self.helper(root.left))
+		right = max(0, self.helper(root.right))
+		val = max(left, 0) + max(right, 0) + root.val
+		self.maxValue = max(val, self.maxValue)
+		return max(left, right) + root.val
+		
+		
+——————————————————————————————————————————————————————————————————————————————————————————————————————————
+【116】Populating Next Right Pointers in Each Node
+You are given a perfect binary tree where all leaves are on the same level, and every parent has two children.
+The binary tree has the following definition:
+struct Node {
+  int val;
+  Node *left;
+  Node *right;
+  Node *next;
+}
+Populate each next pointer to point to its next right node. 
+If there is no next right node, the next pointer should be set toNULL.
+Initially, all next pointers are set toNULL.
+Note:
+You may only use constant extra space.(有空间限制！)
+You may assume that it is a perfect binary tree (ie, all leaves are at the same level, and every parent has two children).
+class Solution(object):
+	def connect(self, root):
+		if root == None:
+			return None
+		p = root
+		while p.left:
+			q = p
+			p.left.next = p.right
+			while q.next:
+				pre = q.right
+				q = q.next
+				pre.next = q.left
+				q.left.next = q.right
+			p = p.left
+		return root
+			
+			
+——————————————————————————————————————————————————————————————————————————————————————————————————————————
+【117】Populating Next Right Pointers in Each Node II
+Populate each next pointer to point to its next right node. If there is no next right node, the next pointer should be set to NULL.
+Initially, all next pointers are set to NULL.
+class Solution(object):
+	def connect(self, root):
+		if root == None:
+			return root
+		p = root
+		while p:
+			dummy = ListNode(0)
+			pre = dummy
+			while p:
+				if p.left:
+					pre.next = p.left
+					pre = p.left
+				if p.right:
+					pre.next = p.right
+					pre = p.right
+				p = p.next
+			p = dummy.next
+		return root
+
+
+——————————————————————————————————————————————————————————————————————————————————————————————————————————
+【112】Path Sum
+Given a binary tree and a sum, determine if the tree has a root-to-leaf path such that adding up all the values along the path equals the given sum.
+Note: A leaf is a node with no children.
+class Solution(object):
+	def hasPathSum(self, root, sum):
+		if root == None:
+			return False
+		if root.left == None and root.right == None and root.val == sum:
+			return True
+		left = right = False
+		if root.left:
+			left = self.hasPathSum(root.left, sum-root.val)
+		if left == False and root.right:
+			right = self.hasPathSum(root.right, sum-root.val)
+		return left or right
+			
+					
+——————————————————————————————————————————————————————————————————————————————————————————————————————————
+【113】Path Sum II
+Given a binary tree and a sum, find all root-to-leaf paths where each path's sum equals the given sum.
+Note: A leaf is a node with no children.
+class Solution(object):
+	def pathSum(self, root, sum):
+		res = []
+		path = []
+		sfl
+	
+	
+	
+	
+——————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 
 
 ——————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 
-——————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 
 ——————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+
+
+
+——————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
