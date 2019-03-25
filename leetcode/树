@@ -241,10 +241,140 @@ You may assume that duplicates do not exist in the tree.
 #同《剑指Offer》
 
 
+——————————————————————————————————————————————————————————————————————————————————————————————————————————
+【104】Maximum Depth of Binary Tree
+Given a binary tree, find its maximum depth.
+The maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.
+class Solution(object):
+	#循环
+	def maxDepth(self, root):
+		if root == None:
+			return 0
+		queue = [root]
+		res = 0
+		while queue:
+			res += 1
+			for i in range(len(queue)):
+				node = queue.pop(0)
+				if node.left:
+					queue.append(node.left)
+				if node.right:
+					queue.append(node.right)
+		return res
+	#递归
+	def maxDepth(self, root):
+		if root == None:
+			return 0
+		return max(self.maxDepth(root.left), self.maxDepth(root.right)) + 1
+	
+
+——————————————————————————————————————————————————————————————————————————————————————————————————————————
+【103】Binary Tree Zigzag Level Order Traversal
+Given a binary tree, return the zigzag level order traversal of its nodes' values. 
+(ie, from left to right, then right to left for the next level and alternate between).
+同《剑指Offer》
+
+
+——————————————————————————————————————————————————————————————————————————————————————————————————————————
+【102】Binary Tree Level Order Traversal
+Given a binary tree, return the level order traversal of its nodes' values. (ie, from left to right, level by level).
+#层序遍历，同《剑指Offer》
+
+
+——————————————————————————————————————————————————————————————————————————————————————————————————————————
+【101】Symmetric Tree
+Given a binary tree, check whether it is a mirror of itself (ie, symmetric around its center).
+class Solution(object):
+	#递归
+	def isSymmetric(self, root):
+		return self.check(root, root)
+	def check(self, p1, p2):
+		if p1 == None and p2 == None:
+			return True
+		if p1 == None or p2 == None:
+			return False
+		if p1.val != p2.val:
+			return False
+		return self.check(p1.left, p2.right) and self.check(p1.right, p2.left)
+	#循环
+	def isSymmetric(self, root):
+		if root == None:
+			return True
+		queue = [root.left, root.right]
+		while queue:
+			q1 = queue.pop(0)
+			q2 = queue.pop(0)
+			if q1 == None and q2 == None:
+				continue
+			if q1 == None or q2 == None:
+				return False
+			if q1.val != q2.val:
+				return False
+			queue.extend([q1.left, q2.right, q1.right, q2.left])
+		return True
+				
+		
+——————————————————————————————————————————————————————————————————————————————————————————————————————————
+【100】Same Tree
+class Solution(object):
+	#递归
+	def isSameTree(self, p, q):
+		if p == None and q == None:
+			return True
+		if p == None or q == None:
+			return False
+		if p.val != q.val:
+			return False
+		return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
+	#循环
+	def isSameTree(self, p, q):
+		queue = [p, q]
+		while queue:
+			p = queue.pop(0)
+			q = queue.pop(0)
+			if p == None and q == None:
+				continue 
+			if p == None or q == None:
+				return False
+			if p.val != q.val:
+				return False
+			queue.extend([p.left, q.left, p.right, q.right])
+		return True
+
+
+——————————————————————————————————————————————————————————————————————————————————————————————————————————
+【99】Recover Binary Search Tree
+Two elements of a binary search tree (BST) are swapped by mistake.
+Recover the tree without changing its structure.
+class Solution(object):
+	def recoverTree(self, root):
+		stack = []
+		node = root
+		pre = None
+		while stack or node:
+			if node != None:
+				while node.left:
+					stack.append(node)
+					node = node.left
+				if pre and pre.val > node.val:
+					first_pre = pre
+					first_node = node
+			node = stack.pop()
+
+
+——————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 
 
 
+——————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+
+
+
+
+
+——————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 
 
