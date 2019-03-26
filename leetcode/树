@@ -377,24 +377,86 @@ Assume a BST is defined as follows:
 The left subtree of a node contains only nodes with keys less than the node's key.
 The right subtree of a node contains only nodes with keys greater than the node's key.
 Both the left and right subtrees must also be binary search trees.
-
-
-
-
+class Solution(object):
+	#中序遍历非递归
+	def isValidBST(self, root):
+		p = root
+		stack = []
+		pre = TreeNode(float('-inf'))
+		while p or stack:
+			while p:
+				stack.append(p)
+				p = p.left
+			if stack:
+				p = stack.pop()
+				if p.val <= pre.val:
+					return False
+				pre = p
+				p = p.right
+		return True
+	#中序遍历递归
+	def isValidBST(self, root):
+		self.pre = TreeNode(float('-inf'))
+		self.res = True
+		self.inOrder(root)
+		return self.res
+	def inOrder(self, root):
+		if root == None:
+			return
+		self.inOrder(root.left)
+		if root.val <= self.pre.val:
+			self.res = False
+		self.pre = root
+		self.inOrder(root.right)
+	#记录最大最小值，递归
+	def isValidBST(self, root):
+		maxVal = float('inf')
+		minVal = float('-inf')
+		return self.helper(root, minVal, maxVal)
+	def helper(self, root, minVal, maxVal):
+		if root == None:
+			return True
+		if root.val >= maxVal or root.val <= minVal:
+			return False
+		return self.helper(root.left, minVal, root.val) and self.helper(root.right, root.val, maxVal)
+		
+		
+——————————————————————————————————————————————————————————————————————————————————————————————————————————
+【96】Unique Binary Search Trees 只需要求几个
+Given n, how many structurally unique BST's (binary search trees) that store values 1 ... n?
+class Solution(object):
+	def numTrees(self, n):
+		res = [0] * (n + 1)
+		res[0] = 1
+		res[1] = 1
+		for i in range(2, n+1):
+			for j in range(i):
+				res[i] += res[j] * res[i-j-1]
+		return res[n]
 
 
 ——————————————————————————————————————————————————————————————————————————————————————————————————————————
-
-
-
-
-
-
-——————————————————————————————————————————————————————————————————————————————————————————————————————————
-
-
-
-
+【95】Unique Binary Search Trees II 要把所有树返回
+Given an integer n, generate all structurally unique BST's (binary search trees) that store values 1 ... n.
+class Solution(object):
+	def generateTrees(self, n):
+		if n == 0:
+			return []
+		return self.createTree(1, n)
+	def createTree(self, low, high):
+		if low > high:
+			return [None]
+		res = []
+		for i in range(low, high+1):
+			left = self.createTree(low, i-1)
+			right = self.createTree(i+1, high)
+			for a in left:
+				for b in right:
+					node = ListNode(i)
+					node.left = a
+					node.right = b
+					res.append(node)
+		return res
 
 
 
