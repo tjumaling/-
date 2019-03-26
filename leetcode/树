@@ -344,25 +344,41 @@ class Solution(object):
 
 ——————————————————————————————————————————————————————————————————————————————————————————————————————————
 【99】Recover Binary Search Tree
+#中序遍历，相邻交换只有一对前大后小，隔着交换会有两对
 Two elements of a binary search tree (BST) are swapped by mistake.
 Recover the tree without changing its structure.
 class Solution(object):
 	def recoverTree(self, root):
 		stack = []
-		node = root
-		pre = None
-		while stack or node:
-			if node != None:
-				while node.left:
-					stack.append(node)
-					node = node.left
-				if pre and pre.val > node.val:
-					first_pre = pre
-					first_node = node
-			node = stack.pop()
-
-
+		p = root
+		pre = a = b = None
+		while stack or p:
+			while p:
+				stack.append(p)
+				p = p.left
+			p = stack.pop()
+			if pre and pre.val > p.val:
+				if a == None and b == None:
+					a = pre
+					b = p
+				else:
+					b = p
+					break
+			pre = p
+			p = p.right
+		if a and b:
+			a.val, b.val = b.val, a.val
+	
+	
 ——————————————————————————————————————————————————————————————————————————————————————————————————————————
+【98】Validate Binary Search Tree
+Given a binary tree, determine if it is a valid binary search tree (BST).
+Assume a BST is defined as follows:
+The left subtree of a node contains only nodes with keys less than the node's key.
+The right subtree of a node contains only nodes with keys greater than the node's key.
+Both the left and right subtrees must also be binary search trees.
+
+
 
 
 
