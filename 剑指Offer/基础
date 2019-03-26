@@ -197,7 +197,23 @@ def inOrder(pHead):
 	return res
 #后序遍历
 def postOrder(pHead):
-
+	p = pHead
+	stack = []
+	res = []
+	lastVisited = None
+	while p or stack:
+		while p != None:
+			stack.append(p)
+			p = p.left
+		p = stack[-1]
+		if p.right != None and lastVisited != p.right:
+			p = p.right
+		else:
+			p = stack.pop()
+			res.append(p.val)
+			lastVisited = p
+			p = None
+	return res
 
 
 
