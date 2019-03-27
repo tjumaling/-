@@ -465,38 +465,107 @@ class Solution(object):
 				visited[i] = False
 
 
+————————————————————————————————————————————————————————————————————————————————————————————————————
+【78】Subsets
+Given a set of distinct integers, nums, return all possible subsets (the power set).
+Note: The solution set must not contain duplicate subsets.
+Example:
+Input: nums = [1,2,3]
+Output:
+[
+  [3],
+  [1],
+  [2],
+  [1,2,3],
+  [1,3],
+  [2,3],
+  [1,2],
+  []
+]
+class Solution(object):
+	def subsets(self, nums):
+		trace = []
+		res = []
+		self.DFS(nums, res, trace, 0)
+		return res
+	def DFS(self, nums, res, trace, m):
+		if m == len(nums):
+			res.append(trace[:])
+			return
+		trace.append(nums[m])
+		self.DFS(nums, res, trace, m+1)
+		trace.pop()
+		self.DFS(nums, res trace, m+1)
+			
+
+————————————————————————————————————————————————————————————————————————————————————————————————————
+【90】Subsets II
+Given a collection of integers that might contain duplicates, nums, return all possible subsets (the power set).
+Note: The solution set must not contain duplicate subsets.
+Input: [1,2,2]
+Output:
+[
+  [2],
+  [1],
+  [1,2,2],
+  [2,2],
+  [1,2],
+  []
+]
+class Solution(object):
+	def subsetsWithDup(self, nums):
+		trace = []
+		res = []
+		nums.sort()
+		visited = [False] * len(nums)
+		self.DFS(nums, res, trace, 0, visited)
+		return res
+	def DFS(self, nums, res, trace, m, visited):
+		if m == len(nums):
+			res.append(trace[:])
+			return
+		if m>0 and nums[m]==nums[m-1] and visited[m-1]==False:
+			self.DFS(nums, res, trace, m+1, visited)
+		else:
+			trace.append(nums[m])
+			visited[m] = True
+			self.DFS(nums, res, trace, m+1, visited)
+			trace.pop()
+			visited[m] = False
+			self.DFS(nums, res, trace, m+1, visited)
+	#不用多余空间的
+	def DFS(self,nums,res,now,k):
+		res.append(list(now))
+		if k == len(nums):
+			return
+		i = k
+		while i < len(nums):
+			now.append(nums[i])
+			self.DFS(nums,res,now,i+1)
+			while i<len(nums)-1 and nums[i+1]==nums[i]:
+				i += 1
+			i += 1
+			now.pop()
+
+
+————————————————————————————————————————————————————————————————————————————————————————————————————
+
+
+————————————————————————————————————————————————————————————————————————————————————————————————————
+
+
+————————————————————————————————————————————————————————————————————————————————————————————————————
 
 
 
+————————————————————————————————————————————————————————————————————————————————————————————————————
+
+
+————————————————————————————————————————————————————————————————————————————————————————————————————
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+————————————————————————————————————————————————————————————————————————————————————————————————————
 
 
 
