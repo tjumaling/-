@@ -314,41 +314,155 @@ class Solution(object):
 		m, n = len(s1), len(s2)
 		dp = [[False for i in range(n+1)] for j in range(m+1)]
 		
+		
+————————————————————————————————————————————————————————————————————————————————————————————————————
+【93】Restore IP Addresses
+#所以说IP地址总共有四段，每一段可能有一位，两位或者三位，范围是[0, 255]，所以当某段是三位时，我们要判断其是否越界（>255)，
+还有一点很重要的是，当只有一位时，0可以成某一段，如果有两位或三位时，像 00，01，001，011，000等都是不合法的。
+Given a string containing only digits, restore it by returning all possible valid IP address combinations.
+Input: "25525511135"
+Output: ["255.255.11.135", "255.255.111.35"]
+class Solution(object):
+	def restoreIpAddresses(self, s):
+		res = []
+		trace = []
+		self.DFS(s, 0, res, trace)
+		return res
+	def DFS(self, s, m, res, trace):
+		if len(s)-m > 3*(4-len(trace)):
+			return
+		if len(s)-m < 4-len(trace):
+			return 
+		if m == len(s) and len(trace) == 4:
+			res.append('.'.join(trace))
+		for i in range(3):
+			if self.isValid(s[m:m+i+1]):
+				trace.append(s[m:m+i+1])
+				self.DFS(s, m+i+1, res, trace)
+				trace.pop()
+	def isValid(self, s):
+		if len(s)<1 or len(s)>3:
+			return False
+		if len(s)!= 1 and s[0]=='0':
+			return False
+		if len(s)==3 and s>'255':
+			return False
+		return True
+		
 
+————————————————————————————————————————————————————————————————————————————————————————————————————
+【69】Sqrt(x)
+Implement int sqrt(int x).
+Compute and return the square root of x, where x is guaranteed to be a non-negative integer.
+Since the return type is an integer, the decimal digits are truncated and only the integer part of the result is returned.
+#牛顿迭代法：x(n+1) = 0.5 * ( x(n) + num/x(n) )
+计算x2 = n的解，令f(x)=x2-n，相当于求解f(x)=0的解。
+首先取x0，如果x0不是解，做一个经过(x0,f(x0))这个点的切线，与x轴的交点为x1。
+同样的道理，如果x1不是解，做一个经过(x1,f(x1))这个点的切线，与x轴的交点为x2。以此类推。
+class Solution(object):
+	def mySqrt(self, x):
+		res = x
+		while res * res > x:
+			res = int((res + 1.0*x/res) / 2.0)
+		return res
 
 
 ————————————————————————————————————————————————————————————————————————————————————————————————————
-
-
-
-
+【50】Pow(x, n)
+Implement pow(x, n), which calculates x raised to the power n (xn).
+class Solution(object):
+	def myPow(self, x, n):
+		if x == 0:
+			return 0
+		if n == 0:
+			return 1
+		if n < 0:
+			return 1.0 / self.myPow(x, -n)
+		base = x
+		res = 1
+		while n:
+			if n & 1:
+				res *= base
+			base *= base
+			n = n >> 1
+		return res
 
 
 ————————————————————————————————————————————————————————————————————————————————————————————————————
+【46】Permutations
+Given a collection of distinct integers, return all possible permutations.
+Example:
+Input: [1,2,3]
+Output:
+[
+  [1,2,3],
+  [1,3,2],
+  [2,1,3],
+  [2,3,1],
+  [3,1,2],
+  [3,2,1]
+]
+class Solution(object):
+	def permute(self, nums):
+		nums.sort()
+		res = []
+		self.DFS(nums, 0, res)
+		return res
+	def DFS(self, nums, m, res):
+		if m == len(nums):
+			res.append(nums[:])
+		for i in range(m, len(nums)):
+			nums[m], nums[i] = nums[i], nums[m]
+			self.DFS(nums, m+1, res)
+			nums[m], nums[i] = nums[i], nums[m]
+	#为了和下题统一
+	def permute(self, nums):
+		nums.sort()
+		res = []
+		trace = []
+		self.DFS(nums, res, trace)
+		return res
+	def DFS(self, nums, res, trace):
+		if len(trace) == len(nums):
+			res.append(trace[:])
+		for i in range(len(nums)):
+			if nums[i] not in trace:
+				trace.append(nums[i])
+				self.DFS(nums, res, trace)
+				trace.pop()
+			
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+————————————————————————————————————————————————————————————————————————————————————————————————————
+【47】Permutations II
+Given a collection of numbers that might contain duplicates, return all possible unique permutations.
+Example:
+Input: [1,1,2]
+Output:
+[
+  [1,1,2],
+  [1,2,1],
+  [2,1,1]
+]
+class Solution(object):
+	def permuteUnique(self, nums):
+		nums.sort()
+		res = []
+		trace = []
+		visited = [False] * len(nums)
+		self.DFS(nums, res, trace, visited)
+		return res
+	def DFS(self, nums, res, trace, visited):
+		if len(trace) == len(nums):
+			res.append(trace[:])
+		for i in range(len(nums)):
+			if visited[i]==False:
+				if i>0 and nums[i]==nums[i-1] and visited[i-1]==False:
+					continue
+				trace.append(nums[i])
+				visited[i] = True
+				self.DFS(nums, res, trace, visited)
+				trace.pop()
+				visited[i] = False
 
 
 
