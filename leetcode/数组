@@ -215,6 +215,12 @@ class Solution(object):
 
 
 ——————————————————————————————————————————————————————————————————————————————————————————————————————
+【54】Spiral Matrix
+Given a matrix of m x n elements (m rows, n columns), return all elements of the matrix in spiral order.
+同《剑指Offer》
+
+
+——————————————————————————————————————————————————————————————————————————————————————————————————————
 【59】Spiral Matrix II
 Given a positive integer n, generate a square matrix filled with elements from 1 to n2 in spiral order.
 class Solution(object):
