@@ -98,10 +98,18 @@ Given an unsorted array of integers, find the length of the longest consecutive 
 Your algorithm should run in O(n) complexity.
 class Solution(object):
 	def longestConsecutive(self, nums):
-		i = 0
-		while i < len(nums):
-			if nums[i] == i+1：
-
+		nums = set(nums)
+		res = 0
+		for i in nums:
+			if i-1 in nums:
+				continue
+			cur = i
+			cnt = 0
+			while cur in nums:
+				cnt += 1
+				cur += 1
+			res = max(cnt, res)
+		return res
 			
 
 ——————————————————————————————————————————————————————————————————————————————————————————————————————
