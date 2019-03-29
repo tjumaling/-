@@ -39,7 +39,41 @@ class Solution(object):
 				i += 1
 		return pnext
 		
-		
+
+——————————————————————————————————————————————————————————————————————————————————————————————————————————————
+【131】Palindrome Partitioning  #回溯法
+Given a string s, partition s such that every substring of the partition is a palindrome.
+Return all possible palindrome partitioning of s.
+Example:
+Input: "aab"
+Output:
+[
+  ["aa","b"],
+  ["a","a","b"]
+]
+class Solution(object):
+	def partition(self, s):
+		res = []
+		trace = []
+		self.DFS(s, res, trace, 0)
+		return res
+	def DFS(self, s, res, trace, k):
+		if k >= len(s):
+			res.append(trace[:])
+		for i in range(k,len(s)):
+			if self.isValid(s, k, i):
+				trace.append(s[k:i+1])
+				self.DFS(s, res, trace, i+1)
+				trace.pop()
+	def isValid(self, s, a, b):
+		while a < b:
+			if s[a] != s[b]:
+				return False
+			a += 1
+			b -= 1
+		return True
+			
+
 ——————————————————————————————————————————————————————————————————————————————————————————————————————————————
 【71】Simplify Path
 Given an absolute path for a file (Unix-style), simplify it. Or in other words, convert it to the canonical path.
@@ -48,6 +82,86 @@ For more information, see: Absolute path vs relative path in Linux/Unix
 Note that the returned canonical path must always begin with a slash /, and there must be only a single slash / between two directory names. 
 The last directory name (if it exists) must not end with a trailing /. 
 Also, the canonical path must be the shortest string representing the absolute path.
+Input: "/home/"
+Output: "/home"
 class Solution(object):
 	def simplifyPath(self, path):
-		
+		path = path.split('/')
+		stack = []
+		for i in path:
+			if i == '' or i == '.':
+				continue
+			elif i == '..':
+				if stack:
+					stack.pop()
+			else:
+				stack.append(i)
+		return '/' + '/'.join(stack)
+
+
+——————————————————————————————————————————————————————————————————————————————————————————————————————————————
+【68】Text Justification    
+Given an array of words and a width maxWidth, 
+format the text such that each line has exactly maxWidth characters and is fully (left and right) justified.
+You should pack your words in a greedy approach; that is, pack as many words as you can in each line. 
+Pad extra spaces ' ' when necessary so that each line has exactly maxWidth characters.
+Extra spaces between words should be distributed as evenly as possible. 
+If the number of spaces on a line do not divide evenly between words, 
+the empty slots on the left will be assigned more spaces than the slots on the right.
+For the last line of text, it should be left justified and no extra space is inserted between words.
+Note:
+A word is defined as a character sequence consisting of non-space characters only.
+Each word's length is guaranteed to be greater than 0 and not exceed maxWidth.
+The input array words contains at least one word.
+Example 1:
+Input:
+words = ["This", "is", "an", "example", "of", "text", "justification."]
+maxWidth = 16
+Output:
+[
+   "This    is    an",
+   "example  of text",
+   "justification.  "
+]
+class Solution(object):
+	def fullJustify(self, words, maxWidth):
+		m = len(words)
+		i = 0
+		res = []
+		while i < m:
+			
+
+
+
+
+
+
+
+
+
+
+——————————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+
+
+
+
+——————————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+
+
+
+
+
+——————————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+
+
+
+
+——————————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+
+
+
+——————————————————————————————————————————————————————————————————————————————————————————————————————————————
