@@ -150,7 +150,7 @@ class Solution(object):
 
 
 ——————————————————————————————————————————————————————————————————————————————————————————————————————————————
-【65】Valid Number
+【65】Valid Number   *****
 Validate if a given string can be interpreted as a decimal number.
 Some examples:
 "0" => true
@@ -177,19 +177,88 @@ Decimal point - "."
 Of course, the context of these characters also matters in the input.
 class Solution(object):
 	def isNumber(self, s):
-
+		s = s.strip()
+		if len(s) == 0:
+			return False
+		index, m = 0, len(s)
+		if s[index] in '+-':
+			index += 1
+		point = num = 0
+		while index < m and s[index] in '0123456789.':
+			if s[index] == '.':
+				point += 1
+			else:
+				num += 1
+			index += 1
+		if point > 1 or num < 1:
+			return False
+		if index < m and s[index] in 'eE':
+			index += 1
+			if index < m and s[index] in '+-':
+				index += 1
+			num = 0
+			while index < m and s[index] in '0123456789':
+				index += 1
+				num += 1
+			if num == 0:
+				return False
+		return index == len(s)
+			
 
 ——————————————————————————————————————————————————————————————————————————————————————————————————————————————
-
-
-
-
-
+【67】Add Binary
+Given two binary strings, return their sum (also a binary string).
+The input strings are both non-empty and contains only characters 1 or 0.
+Example 1:
+Input: a = "11", b = "1"
+Output: "100"
+class Solution(object):
+	def addBinary(self, a, b):
+		m = max(len(a), len(b))
+		if m != len(a):
+			a = '0' * (m - len(a)) + a
+		if m != len(b):
+			b = '0' * (m - len(b)) + b
+		res = ''
+		add = 0
+		for i in range(m-1, -1, -1):
+			temp = add + int(a[i]) + int(b[i])
+			if temp == 0:
+				res = '0' + res
+				add = 0
+			elif temp == 1:
+				res = '1' + res
+				add = 0
+			elif temp == 2:
+				res = '0' + res
+				add = 1
+			else:
+				res = '1' + res
+				add = 1
+		return '1'+res if add else res
+		
 
 ——————————————————————————————————————————————————————————————————————————————————————————————————————————————
-
-
-
+【58】Length of Last Word   
+Given a string s consists of upper/lower-case alphabets and empty space characters ' ', return the length of last word in the string.
+If the last word does not exist, return 0.
+Note: A word is defined as a character sequence consists of non-space characters only.
+Example:
+Input: "Hello World"
+Output: 5
+class Solution(object):
+	def lengthOfLastWord(self, s):
+		if s == '':
+			return 0
+		for i in range(len(s)-1, -1, -1):
+			if s[i].isalpha():
+				break
+		for j in range(i, -1, -1):
+			if s[j] == ' ':
+				break
+		if j >= 0  and s[j] == ' ':
+			return i - j
+		return i+1
 
 
 ——————————————————————————————————————————————————————————————————————————————————————————————————————————————
