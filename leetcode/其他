@@ -112,10 +112,11 @@ class Node(object):
 		self.val = val
 		self.neighbors = neighbors
 class Solution(object):
+	#用队列的BFS
 	def cloneGraph(self, node):
 		if node == None:
 			return None
-		head = Node(node.val)
+		head = Node(node.val, [])
 		queue = [node]
 		dic = {node: head}
 		while queue:
@@ -123,16 +124,27 @@ class Solution(object):
 			l = []
 			for i in nd.neighbors:
 				if i not in dic:
-					new = Node(i.val)
+					new = Node(i.val, [])
 					dic[i] = new
 					queue.append(i)
 				l.append(dic[i])
 			dic[nd].neighbors = l
 		return head
-				
-    
-    
-    
+	#用递归的DFS
+	def __init__(self):
+		self.dic = {}
+	def cloneGraph(self, node):
+		if node == None:
+			return None
+		if node.val in self.dic:
+			return self.dic[node.val]
+		newNode = Node(node.val,[])
+		self.dic[node.val] = newNode
+		for i in node.neighbors:
+			newNode.neighbors.append(self.cloneGraph(i))
+		return newNode
+	
+	
 ————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 
