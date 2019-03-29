@@ -12,10 +12,127 @@ class Solution(object):
 		return x == y or y // 10 == x
 
 
+————————————————————————————————————————————————————————————————————————————————————————————————————————————
+【136】Single Number 
+O(n)
+Given an array of integers, every element appears twice except for one. Find that single one.
+Note: 
+Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?
+class Solution(object):
+	def singleNumber(self, nums):
+		res = 0
+		for i in nums:
+			res = res ^ i
+		return res
 
 
+————————————————————————————————————————————————————————————————————————————————————————————————————————————
+【137】Single Number II 
+O(n)
+Given a non-empty array of integers, every element appears three times except for one, which appears exactly once. 
+Find that single one.
+Note:
+Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?
+class Solution(object):
+	def singleNumber(self, nums):
+		ones = twos = 0
+		for i in nums:
+			twos = twos | (i & ones)
+			ones = ones ^ i
+			threes = twos & ones
+			ones = ones & ~threes
+			twos = twos & ~threes
+		return ones
+	
+	
+————————————————————————————————————————————————————————————————————————————————————————————————————————————
+【14】Longest Common Prefix
+Write a function to find the longest common prefix string amongst an array of strings.
+If there is no common prefix, return an empty string "".
+Input: ["flower","flow","flight"]
+Output: "fl"
+class Solution(object):
+	#O(nlogn)
+	def longestCommonPrefix(self, strs):
+		strs.sort()
+		start = strs[0]
+		end = strs[len(strs)-1]
+		for i in range(min(len(start),len(end))):
+			if start[i] != end[i]:
+				return start[:i]
+		return start[:i]
+	#O(n)
+	def longestCommonPrefix(self, strs):
+		if len(strs) == 0:
+			return ''
+		res = strs[0]
+		j = 1
+		while j < len(strs):
+			s = strs[j]
+			for i in range(min(len(res),len(s))):
+				if s[i] != res[i]:
+					res = res[:i]
+					break
+			res = res if len(res)<len(s) else s
+			if res == '':
+				return res
+			j += 1
+		return res
+		
 
-
-
+————————————————————————————————————————————————————————————————————————————————————————————————————————————
+【7】Reverse Integer
+Given a 32-bit signed integer, reverse digits of an integer.
+Assume we are dealing with an environment which could only store integers within the 32-bit signed integer range: [−231,  231 − 1]. 
+For the purpose of this problem, assume that your function returns 0 when the reversed integer overflows.
+class Solution(object):
+	def reverse(self, x):
+		if x < 0:
+			return -self.reverse(-x)
+		res = 0
+		while x:
+			res = res * 10 + x%10
+			x = x // 10
+			if res > 2**31 - 1:
+				return 0
+		return res
+		
+		
+————————————————————————————————————————————————————————————————————————————————————————————————————————————
+【133】Clone Graph
+Given a reference of a node in a connected undirected graph, return a deep copy (clone) of the graph. 
+Each node in the graph contains a val (int) and a list (List[Node]) of its neighbors.
+Note:
+The number of nodes will be between 1 and 100.
+The undirected graph is a simple graph, which means no repeated edges and no self-loops in the graph.
+Since the graph is undirected, if node p has node q as neighbor, then node q must have node p as neighbor too.
+You must return the copy of the given node as a reference to the cloned graph.
+class Node(object):
+	def __init__(self, val, neighbors):
+		self.val = val
+		self.neighbors = neighbors
+class Solution(object):
+	def cloneGraph(self, node):
+		if node == None:
+			return None
+		head = Node(node.val)
+		queue = [node]
+		dic = {node: head}
+		while queue:
+			nd = queue.pop()
+			l = []
+			for i in nd.neighbors:
+				if i not in dic:
+					new = Node(i.val)
+					dic[i] = new
+					queue.append(i)
+				l.append(dic[i])
+			dic[nd].neighbors = l
+		return head
+				
+    
+    
+    
+————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 
