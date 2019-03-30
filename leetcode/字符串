@@ -541,14 +541,26 @@ Explanation: The number "-91283472332" is out of the range of a 32-bit signed in
              Thefore INT_MIN (−231) is returned.
 class Solution(object):
 	def myAtoi(self, str):
-
-
-
-
+		str = str.strip()
+		if len(str)==0 or str[0] not in '0123456789+-':
+			return 0
+		res = index = 0
+		minVal, maxVal = -2**31, 2**31-1
+		flag = 1
+		if str[index] in '+-':
+			if str[index] == '-':
+				flag = -1
+			index += 1
+		while index<len(str) and str[index] in '0123456789':
+			res = res * 10 + int(str[index]) * flag
+			index += 1
+			if res >= maxVal or res <= minVal:
+				return maxVal if res>=maxVal else minVal
+		return res
 
 
 ——————————————————————————————————————————————————————————————————————————————————————————————————————————————
-【6ZigZag Conversion   
+【6】ZigZag Conversion   
 The string "PAYPALISHIRING" is written in a zigzag pattern on a given number of rows like this: 
 (you may want to display this pattern in a fixed font for better legibility)
 P   A   H   N
@@ -570,11 +582,18 @@ Y A   H R
 P     I
 class Solution(object):
 	def convert(self, s, numRows):
-
-
-
-
-
+		if numRows <= 1:
+			return s
+		m = len(s)
+		res = [''] * numRows
+		for i in range(m):
+			index = i % (2*numRows-2)
+			if index < numRows-1:
+				res[index] += s[i]
+			else:
+				res[2*(numRows-1)-index] += s[i]
+		return ''.join(res)
+				
 
 ——————————————————————————————————————————————————————————————————————————————————————————————————————————————
 【5】Longest Palindromic Substring
