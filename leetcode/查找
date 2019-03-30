@@ -395,6 +395,69 @@ class Solution(object):
 	
 	
 ————————————————————————————————————————————————————————————————————————————————————————————————————————
+【36】Valid Sudoku
+Determine if a 9x9 Sudoku board is valid. Only the filled cells need to be validated according to the following rules:
+Each row must contain the digits 1-9 without repetition.
+Each column must contain the digits 1-9 without repetition.
+Each of the 9 3x3 sub-boxes of the grid must contain the digits 1-9 without repetition.
+class Solution(object):
+	def isValidSudoku(self, board):
+		st_row = set()
+		st_col = set()
+		st_9 = set()
+		for i in range(9):
+			for j in range(9):
+				if board[i][j] == '.':
+					continue
+				num = board[i][j] 
+				if (i,num) in st_row or (j,num) in st_col or (i//3+3*(j//3),num) in st_9:
+					return False
+				st_row.add((i,num))
+				st_col.add((j,num))
+				st_9.add((i//3+3*(j//3),num))
+		return True
+
+
+————————————————————————————————————————————————————————————————————————————————————————————————————————
+【37】Sudoku Solver
+Write a program to solve a Sudoku puzzle by filling the empty cells.
+A sudoku solution must satisfy all of the following rules:
+Each of the digits 1-9 must occur exactly once in each row.
+Each of the digits 1-9 must occur exactly once in each column.
+Each of the the digits 1-9 must occur exactly once in each of the 9 3x3 sub-boxes of the grid.
+The given board contain only digits 1-9 and the character '.'.
+You may assume that the given Sudoku puzzle will have a single unique solution.
+The given board size is always 9x9.
+class Solution(object):
+	def solveSudoku(self, board):
+	        """
+        	:type board: List[List[str]]
+        	:rtype: void Do not return anything, modify board in-place instead.
+        	"""
+		self.DFS(board, 0)
+	def DFS(self, board, m):
+		if m == 81:
+			return 
+		i = m // 9
+		j = m % 9
+		if borad[i][j] != '.':
+			if self.DFS(borad, m+1):
+				return True
+			else:
+				return False
+		for k in '123456789':
+			if not isValid(board, k, i, j):
+				continue
+			board[i][j] = k
+			if self.DFS(borad, m+1):
+				return True
+			borad[i][j] = '.'
+		return False
+	def isValid(self, borad, k, i, j):
+		m = i / 3
+		n = j / 3
+		for i in range(9):
+			if board[i][
 
 
 
@@ -403,17 +466,7 @@ class Solution(object):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 
 
