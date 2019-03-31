@@ -437,29 +437,33 @@ class Solution(object):
 		self.DFS(board, 0)
 	def DFS(self, board, m):
 		if m == 81:
-			return 
+			return True
 		i = m // 9
 		j = m % 9
-		if borad[i][j] != '.':
-			if self.DFS(borad, m+1):
+		if board[i][j] != '.':
+			if self.DFS(board, m+1):
 				return True
 			else:
 				return False
 		for k in '123456789':
-			if not isValid(board, k, i, j):
+			if not self.isValid(board, k, i, j):
 				continue
 			board[i][j] = k
-			if self.DFS(borad, m+1):
+			if self.DFS(board, m+1):
 				return True
-			borad[i][j] = '.'
+			board[i][j] = '.'
 		return False
-	def isValid(self, borad, k, i, j):
-		m = i / 3
-		n = j / 3
+	def isValid(self, board, k, a, b):
+		m = a // 3
+		n = b // 3
 		for i in range(9):
-			if board[i][
-
-
+			if board[i][b] == k or board[a][i] == k:
+				return False
+		for i in range(3):
+			for j in range(3):
+				if board[m*3+i][n*3+j] == k:
+					return False
+		return True
 
 
 ————————————————————————————————————————————————————————————————————————————————————————————————————————
