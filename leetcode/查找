@@ -467,88 +467,125 @@ class Solution(object):
 
 
 ————————————————————————————————————————————————————————————————————————————————————————————————————————
+【17】Letter Combinations of a Phone Number
+Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent.
+A mapping of digit to letters (just like on the telephone buttons) is given below. Note that 1 does not map to any letters.
+Input: "23"
+Output: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"].
+class Solution(object):
+	#循环
+	def letterCombinations(self, digits):
+		dict = {'2':'abc','3':'def','4':'ghi','5':'jkl','6':'mno','7':'pqrs','8':'tuv','9':'wxyz'}
+		if not digits:
+			return []
+		pre = list(dict[digits[0]])
+		for i in range(1, len(digits)):
+			res = []
+			for j in pre:
+				for c in dict[digits[i]]:
+					res.append(j+c)
+			pre = res
+		return pre
+	#回溯
+	def letterCombinations(self, digits):
+		if not digits:
+			return []
+		dict = {'2':'abc','3':'def','4':'ghi','5':'jkl','6':'mno','7':'pqrs','8':'tuv','9':'wxyz'}
+		res = []
+		trace = []
+		self.DFS(digits, dict, res, trace, 0)
+		return res
+	def DFS(self, digits, dict, res, trace, m):
+		if m == len(digits):
+			res.append(''.join(trace))
+			return                            #总是忘记return
+		for i in dict[digits[m]]:
+			trace.append(i)
+			self.DFS(digits, dict, res, trace, m+1)
+			trace.pop()
+			
 
+————————————————————————————————————————————————————————————————————————————————————————————————————————
+【22】Generate Parentheses
+Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
+For example, given n = 3, a solution set is:
+[
+  "((()))",
+  "(()())",
+  "(())()",
+  "()(())",
+  "()()()"
+]
+class Solution(object):
+	def generateParenthesis(self, n):
+		res = []
+		trace = []
+		self.DFS(n, res, trace, 0, 0)
+		return res
+	def DFS(self, n, res, trace, left, right):
+		if left == n and right == n:
+			res.append(''.join(trace))
+			return
+		if left < n:
+			trace.append('(')
+			self.DFS(n, res, trace, left+1, right)
+			trace.pop()
+		if right < n and left > right:
+			trace.append(')')
+			self.DFS(n, res, trace, left, right + 1)
+			trace.pop()
+		
+		
+————————————————————————————————————————————————————————————————————————————————————————————————————————
+【72】Set Matrix Zeroes    
+Given a m x n matrix, if an element is 0, set its entire row and column to 0. Do it in-place.
+Example 1:
+Input: 
+[
+  [1,1,1],
+  [1,0,1],
+  [1,1,1]
+]
+Output: 
+[
+  [1,0,1],
+  [0,0,0],
+  [1,0,1]
+]
+class Solution(object):
+	def setZeroes(self, matrix):
+		m, n = len(matrix), len(matrix[0])
+		flag_row = flag_col = False
+		for i in range(m):
+			if matrix[i][0] == 0:
+				flag_col = True
+				break
+		for i in range(n):
+			if matrix[0][i] == 0:
+				flag_row = True
+				break
+		for i in range(1, m):
+			for j in range(1, n):
+				if matrix[i][j] == 0:
+					matrix[i][0] = 0
+					matrix[0][j] = 0
+		for i in range(1, m):
+			for j in range(1, n):
+				if matrix[i][0] == 0 or matrix[0][j] == 0:
+					matrix[i][j] = 0
+		if flag_col:
+			for i in range(m):
+				matrix[i][0] = 0
+		if flag_row:
+			for i in range(n):
+				matrix[0][i] = 0
 
 
 ————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 
 
