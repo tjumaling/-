@@ -220,13 +220,15 @@ A solution set is:
 ]
 class Solution(object):
 	def fourSum(self, nums, target):
+		nums.sort()
 		m = len(nums)
-		pre_i = pre_j = None
+		pre_i = None
 		res = []
 		for i in range(m-3):
 			if nums[i] == pre_i:
 				continue
 			pre_i = nums[i]
+			pre_j = None
 			for j in range(i+1, m-2):
 				if nums[j] == pre_j:
 					continue
@@ -241,11 +243,13 @@ class Solution(object):
 							left += 1
 						while right-1>left and nums[right-1]==nums[right]:
 							right -= 1
+						left += 1
+						right -= 1
 					elif nums[left] + nums[right] > tgt:
 						right -= 1
 					else:
 						left += 1
-			return res
+		return res
 					
 
 ————————————————————————————————————————————————————————————————————————————————————————————————————————————
