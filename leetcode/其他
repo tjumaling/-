@@ -222,6 +222,7 @@ class Solution(object):
 	def fourSum(self, nums, target):
 		m = len(nums)
 		pre_i = pre_j = None
+		res = []
 		for i in range(m-3):
 			if nums[i] == pre_i:
 				continue
@@ -232,11 +233,19 @@ class Solution(object):
 				pre_j = nums[j]
 				left = j + 1
 				right = m - 1
+				tgt = target - nums[i] - nums[j]
 				while left < right:
+					if nums[left] + nums[right] == tgt:
+						res.append([nums[i], nums[j], nums[left], nums[right]])
+						while left+1<right and nums[left+1]==nums[left]:
+							left += 1
+						while right-1>left and nums[right-1]==nums[right]:
+							right -= 1
+					elif nums[left] + nums[right] > tgt:
+						right -= 1
+					else:
+						left += 1
+			return res
 					
-
-
-
-
 
 ————————————————————————————————————————————————————————————————————————————————————————————————————————————
