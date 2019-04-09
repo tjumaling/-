@@ -326,8 +326,29 @@ class Solution(object):
 		
 
 ——————————————————————————————————————————————————————————————————————————————————————————————————————————
-【23】Merge k Sorted Lists  ？？？？  
+【23】Merge k Sorted Lists   *****
 Merge k sorted linked lists and return it as one sorted list. Analyze and describe its complexity.
+import heapq
+class Solution(object):
+	def mergeKLists(self, lists):
+		if not lists:
+			return None
+		def my_lt(self, other):
+			return self.val < other.val
+		setattr(ListNode, "__lt__", my_lt)
+		sortedList = curr = ListNode("Dummy")
+		h = []
+		for head in lists:
+			if head:
+				h.append(head)
+		heapq.heapify(h)
+		while h:
+			top = heapq.heappop(h)
+			curr.next = top
+			curr = top
+			if top.next:
+				heapq.heappush(h, top.next)
+		return sortedList.next
 
 
 ——————————————————————————————————————————————————————————————————————————————————————————————————————————
