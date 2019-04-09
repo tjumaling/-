@@ -3,3 +3,29 @@ ________________________________________________________________________________
 	堆：节点存储数据的完全二叉树。
 	插入元素：向上筛选O(logn)。新元素放在最后，不断与父结点比较，e小就交换。
 	弹出元素：向下筛选O(logn)。从最后取出元素放到顶，最小的放在顶，交换。
+	class SmallHeap:
+	    def init(self):
+		self.arr = list()
+	    def heap_insert(self, val):
+		heapq.heappush(self.arr, val)
+	    def heapify(self):
+		heapq.heapify(self.arr)
+	    def heap_pop(self):
+		return heapq.heappop(self.arr)
+	    def get_top(self):
+		if not self.arr:
+		    return
+		return self.arr[0]
+	class BigHeap:
+	    def init(self):
+		self.arr = list()
+	    def heap_insert(self, val):
+		heapq.heappush(self.arr, -val)
+	    def heapify(self):
+		heapq.heapify(self.arr)
+	    def heap_pop(self):
+		return -heapq.heappop(self.arr)
+	    def get_top(self):
+		if not self.arr:
+		    return
+		return -self.arr[0]
