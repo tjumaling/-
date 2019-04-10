@@ -218,7 +218,7 @@ class Solution(object):
 		
 		
 ————————————————————————————————————————————————————————————————————————————————————————————————————
-【132】Palindrome Partitioning II    ??????Time Limit
+【132】Palindrome Partitioning II   
 Given a string s, partition s such that every substring of the partition is a palindrome.
 Return the minimum cuts needed for a palindrome partitioning of s.
 Example:
@@ -242,15 +242,7 @@ class Solution(object):
 						dp[i] = min(dp[i], dp[j-1]+i-j+1)
 		return dp[-1]
 	def isValid(self, s):
-		if len(s) <= 1:
-			return True
-		m, n = 0, len(s)-1
-		while m <= n:
-			if s[m] != s[n]:
-				return False
-			m += 1
-			n -= 1
-		return True
+		return s == s[::-1]
 
 
 ————————————————————————————————————————————————————————————————————————————————————————————————————
