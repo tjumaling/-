@@ -1,0 +1,16 @@
+——————————————————————————————————————————————————————————————————————————————————————————————————————
+【Union Find】
+Input: 6, [(1,2),(2,3),(4,5)]
+class Solution:
+	def unionFind(self, m, L):
+		myList = [i for i in range(m)]
+		for temp in L:
+			a = temp[0] - 1
+			b = temp[1] - 1
+			if myList[a] == myList[b]:
+				continue
+			for i in range(len(myList)):
+				if myList[i] == myList[b]:
+					myList[i] = myList[a]
+		return len(set(myList))
+					
