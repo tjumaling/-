@@ -295,6 +295,53 @@ class Solution(object):
 		res = [1] * (rowIndex + 1)
 		for i in range(rowIndex):
 			for j in range(1, i-1):
-				
+		
+		
+————————————————————————————————————————————————————————————————————————————————————————————————————————————
+【994】Rotting Oranges
+In a given grid, each cell can have one of three values:
+the value 0 representing an empty cell;
+the value 1 representing a fresh orange;
+the value 2 representing a rotten orange.
+Every minute, any fresh orange that is adjacent (4-directionally) to a rotten orange becomes rotten.
+Return the minimum number of minutes that must elapse until no cell has a fresh orange.  If this is impossible, return -1 instead.
+Input: [[2,1,1],[0,1,1],[1,0,1]]
+Output: -1
+Explanation:  The orange in the bottom left corner (row 2, column 0) is never rotten, because rotting only happens 4-directionally.
+class Solution(object):
+	def orangesRotting(self, grid):
+		m, n = len(grid), len(grid[0])
+		fresh = 0
+		q = []
+		for i in range(m):
+			for j in range(n):
+				if grid[i][j] == 1:
+					fresh += 1
+				elif grid[i][j] == 2:
+					q.append((i,j))
+		if fresh == 0:
+			return 0 
+		X = [0, 0, 1, -1]
+		Y = [1, -1, 0, 0]
+		res = 0
+		while q:
+			for i in range(len(q)):
+				x, y = q.pop(0)
+				for k in range(4):
+					temp_x = x + X[k]
+					temp_y = y + Y[k]
+					if temp_x>=0 and temp_y>=0 and temp_x<m and temp_y<n and grid[temp_x][temp_y]==1:
+						grid[temp_x][temp_y] = 2
+						q.append((temp_x, temp_y))
+						fresh -= 1
+			res += 1
+			if fresh == 0:
+				return res
+		return -1
+					
+
+
+
+
 
 
